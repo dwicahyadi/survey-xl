@@ -8,21 +8,20 @@ use Livewire\Component;
 class SectionList extends Component
 {
     public $sections;
-    public $selectedSection = 0;
+    public $selectedSectionId = 0;
 
     protected $listeners = [
         'saved'=>'$refresh',
-        'selectSection'
+        'selectSectionId'
         ];
 
     public function render()
     {
-        $this->sections = Section::withCount(['questions'])->get();
         return view('livewire.survey-question.section-list');
     }
 
-    public function selectSection($id)
+    public function selectSectionId(int $id)
     {
-        $this->selectedSection = $id;
+        $this->selectedSectionId = $id;
     }
 }

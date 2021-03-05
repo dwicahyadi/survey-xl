@@ -15,12 +15,12 @@
                     @livewire('survey-question.section-form')
                     <hr>
                     <strong>Section List</strong>
-                    @livewire('survey-question.section-list')
+                    @livewire('survey-question.section-list',['sections'=>$sections])
                 </div>
 
                 <div class="col-lg-8 col-xl-8">
                     <strong>Question List</strong>
-                    @livewire('survey-question.question-list')
+                    @livewire('survey-question.question-list',['sections'=>$sections])
                 </div>
             </div>
         </div>

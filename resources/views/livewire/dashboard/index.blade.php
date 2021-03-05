@@ -63,8 +63,8 @@
                 <div class="card-header">
                     <strong class="card-title">Section and Question</strong>
                 </div>
-                <div class="card-body d-flex">
-                    <div>
+                <div class="card-body row">
+                    <div class="col-lg-4 col-sm-12">
                         <div class="p-4">
                             <h2 class="display-2 mb-2">{{ number_format($sectionsCount) }}</h2>
                             <h3 class="h4 text-black">Sections</h3>
@@ -77,7 +77,7 @@
 
                     </div>
 
-                    <div class="p-4 d-flex align-items-center justify-content-end flex-fill" >
+                    <div class="p-4 col-lg-8 col-sm-12" >
                         @livewire('chart.pie',['elementId'=>'sections_pie_chart','itemName'=>'Total questions for this section', 'title'=> '', 'data'=>$pieChartSectionData])
                     </div>
                 </div>

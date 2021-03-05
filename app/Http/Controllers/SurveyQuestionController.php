@@ -19,7 +19,8 @@ class SurveyQuestionController extends Controller
     {
         if(!Auth::user()->can('manage questions'))
             return Redirect::back()->withErrors(['You dont have permission to do that action!']);
-        return view('survey-question.index');
+        $sections = Section::with('questions')->withCount('questions')->get();
+        return view('survey-question.index', ['sections'=>$sections]);
     }
     public function create(Section $section)
     {

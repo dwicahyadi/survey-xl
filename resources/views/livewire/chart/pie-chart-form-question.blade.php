@@ -1,5 +1,5 @@
 <div>
-    <div id="{{ $elementId }}" style="min-width: 400px;height:400px;"></div>
+    <div id="{{ $elementId }}" style="min-width: 300px;height:300px; "></div>
     <script type="text/javascript">
         // based on prepared DOM, initialize echarts instance
         var {{ $elementId }} = echarts.init(document.getElementById('{{ $elementId }}'));

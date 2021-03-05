@@ -3,18 +3,18 @@
     <div class="card card-body shadow-soft my-2">
         <div class="form-group">
             <label>PIC Name</label>
-            <input type="text" class="form-control" wire:model="pic_name">
+            <input type="text" class="form-control" wire:model.defer="pic_name">
         </div>
         <div class="form-group">
             <label>PIC Contact</label>
-            <input type="text" class="form-control" wire:model="pic_contact">
+            <input type="text" class="form-control" wire:model.defer="pic_contact">
         </div>
 
         <hr>
 
         <div class="form-group">
             <label>Note (optional)</label>
-            <textarea class="form-control" wire:model="note"></textarea>
+            <textarea class="form-control" wire:model.defer="note"></textarea>
         </div>
     </div>
     <hr>
@@ -34,7 +34,7 @@
                                 <input type="radio"
                                        value="{{ $answer->text }}"
                                        id="{{ 'answer-question-'.$question->id.'-'.$answer->id }}"
-                                       wire:model="responses.{{$question->id}}.value"
+                                       wire:model.defer="responses.{{$question->id}}.value"
                                 />
                                 <label class="list-group-item" for="{{ 'answer-question-'.$question->id.'-'.$answer->id }}">{{ $answer->text }}</label>
                             @empty
@@ -50,7 +50,7 @@
                                        class="form-control"
                                        id="{{ 'answer-question-'.$question->id.'-'.$answer->id }}"
                                        placeholder="type a number..."
-                                       wire:model="responses.{{$question->id}}.value"
+                                       wire:model.defer="responses.{{$question->id}}.value"
                                 />
                             </div>
                         @endif
@@ -62,7 +62,7 @@
                                     class="form-control"
                                     id="{{ 'answer-question-'.$question->id.'-'.$answer->id }}"
                                     placeholder="type response..."
-                                    wire:model="responses.{{$question->id}}.value"></textarea>
+                                    wire:model.defer="responses.{{$question->id}}.value"></textarea>
                             </div>
                         @endif
 
@@ -73,7 +73,7 @@
                                     class="my-4"
                                     id="{{ 'answer-question-'.$question->id.'-'.$answer->id }}"
                                     placeholder="type response..."
-                                    wire:model="responses.{{$question->id}}.file" />
+                                    wire:model.defer="responses.{{$question->id}}.file" />
                             </div>
                         @endif
                 </div>
@@ -89,8 +89,4 @@
     <hr>
 
     <button class="btn btn-primary btn-block" wire:click="save" wire:loading.attr="disabled"><i class="fas fa-check-circle"></i> Save Survey</button>
-
-    <pre>
-        {{ var_dump($responses) }}
-    </pre>
 </div>

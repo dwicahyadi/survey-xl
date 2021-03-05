@@ -8,11 +8,12 @@ use Livewire\Component;
 
 class QuestionList extends Component
 {
+    public $sections;
+    public $selectedSectionId;
     public $selectedSection;
-    public $questions;
 
     protected $listeners = [
-        'selectSection'
+        'selectSectionId'
     ];
 
 
@@ -21,10 +22,11 @@ class QuestionList extends Component
         return view('livewire.survey-question.question-list');
     }
 
-    public function selectSection($id)
+    public function selectSectionId(int $id)
     {
-        $this->selectedSection = Section::with('questions')->find($id);
-        $this->questions = $this->selectedSection->questions;
+//        $this->selectedSectionId = $id;
+
+        $this->selectedSection = $this->sections->where('id',$id)->first();
     }
 
     public function toggleActive(Question $question)
