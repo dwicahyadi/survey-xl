@@ -51,7 +51,7 @@
                             <span class="small">Show summary from all surveys</span>
                         </div>
                     </a>
-                    <a href="{{ route('survey-question.index') }}" target="" class="list-group-item list-group-item-action d-flex align-items-center p-0 py-3 px-lg-4">
+                    <a href="{{ route('report.list') }}" target="" class="list-group-item list-group-item-action d-flex align-items-center p-0 py-3 px-lg-4">
                         <span class="icon icon-sm icon-secondary"><span class="fas fa-comment-alt"></span></span>
                         <div class="ml-4">
                             <span class="text-dark d-block">History</span>
