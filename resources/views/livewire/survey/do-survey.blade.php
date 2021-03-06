@@ -1,13 +1,31 @@
 <div>
     <h3>General</h3>
     <div class="card card-body shadow-soft my-2">
+        <div class="d-flex p-2 border-light border-bottom mb-2">
+            <div class="mr-2">
+                <img src="https://ui-avatars.com/api/?background=random&name={{ $outlet->name }}" class="rounded-circle" alt="{{ $outlet->name }}" width="48">
+            </div>
+            <div class="pl-4 flex-fill">
+                <h5 class="text-facebook">{{ $outlet->msisdn }}</h5>
+                <h5>{{ $outlet->name }}</h5>
+                <small class="mr-2">
+                    {{ $outlet->type }}
+                    / {{ $outlet->cluster->name }}
+                    / {{ $outlet->micro_cluster }}
+                    / {{ $outlet->city }}
+                </small>
+            </div>
+        </div>
+
         <div class="form-group">
             <label>PIC Name</label>
-            <input type="text" class="form-control" wire:model.defer="pic_name">
+            <input type="text" class="form-control @error('pic_name') is-invalid @enderror" wire:model.defer="pic_name">
+            @error('pic_name') <span class="form-text text-muted text-danger">{{ $message }}</span> @enderror
         </div>
         <div class="form-group">
             <label>PIC Contact</label>
-            <input type="text" class="form-control" wire:model.defer="pic_contact">
+            <input type="text" class="form-control @error('pic_contact') is-invalid @enderror" wire:model.defer="pic_contact">
+            @error('pic_contact') <span class="form-text text-muted text-danger">{{ $message }}</span> @enderror
         </div>
 
         <hr>
@@ -21,9 +39,10 @@
     @forelse($sections as $section)
         <h3>{{ $section->name }}</h3>
         @forelse($section->questions as $question)
-            <div class="card my-4 shadow-soft" wire:key="question-{{ $question->id }}">
+            <div class="card my-4 shadow-soft @error('responses.'.$question->id.'.*') border-danger text-danger @enderror" wire:key="question-{{ $question->id }}">
                 <div class="card-header border-light border-bottom">
                     <h4>{{ $question->text }}</h4>
+                    @error('responses.'.$question->id.'.*') <span class="form-text text-muted text-danger">{{ $message }}</span> @enderror
                 </div>
                 <div class="card-body p-0">
                     @if($question->type == 'radio_button')
@@ -43,39 +62,39 @@
                         </div>
                     @endif
 
-                        @if($question->type == 'input_number')
+                    @if($question->type == 'input_number')
 
-                            <div class="p-2">
-                                <input type="number"
-                                       class="form-control"
-                                       id="{{ 'answer-question-'.$question->id.'-'.$answer->id }}"
-                                       placeholder="type a number..."
-                                       wire:model.defer="responses.{{$question->id}}.value"
-                                />
-                            </div>
-                        @endif
+                        <div class="p-2">
+                            <input type="number"
+                                   class="form-control"
+                                   id="{{ 'answer-question-'.$question->id.'-'.$answer->id }}"
+                                   placeholder="type a number..."
+                                   wire:model.defer="responses.{{$question->id}}.value"
+                            />
+                        </div>
+                    @endif
 
-                        @if($question->type == 'input_text')
+                    @if($question->type == 'input_text')
 
-                            <div class="p-2">
+                        <div class="p-2">
                                 <textarea
                                     class="form-control"
                                     id="{{ 'answer-question-'.$question->id.'-'.$answer->id }}"
                                     placeholder="type response..."
                                     wire:model.defer="responses.{{$question->id}}.value"></textarea>
-                            </div>
-                        @endif
+                        </div>
+                    @endif
 
-                        @if($question->type == 'file')
+                    @if($question->type == 'file')
 
-                            <div class="p-2">
-                                <input type="file"
-                                    class="my-4"
-                                    id="{{ 'answer-question-'.$question->id.'-'.$answer->id }}"
-                                    placeholder="type response..."
-                                    wire:model.defer="responses.{{$question->id}}.file" />
-                            </div>
-                        @endif
+                        <div class="p-2">
+                            <input type="file"
+                                   class="my-4"
+                                   id="{{ 'answer-question-'.$question->id.'-'.$answer->id }}"
+                                   placeholder="type response..."
+                                   wire:model.defer="responses.{{$question->id}}.file" />
+                        </div>
+                    @endif
                 </div>
             </div>
         @empty
@@ -89,4 +108,5 @@
     <hr>
 
     <button class="btn btn-primary btn-block" wire:click="save" wire:loading.attr="disabled"><i class="fas fa-check-circle"></i> Save Survey</button>
+    {{ $errors }}
 </div>

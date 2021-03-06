@@ -11,6 +11,8 @@ class Question extends Model
 
     protected $fillable = ['section_id','text','type','is_active'];
 
+    protected $hidden = ["created_at", "updated_at"];
+
     public function section(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
         return $this->belongsTo(Section::class);

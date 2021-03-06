@@ -15,7 +15,7 @@ class OutletEditForm extends Component
 
     protected $rules = [
         'name' => 'required|min:6',
-        'msisdn'=> 'required|min:10|max:13',
+        'msisdn'=> 'required|digits_between:10,13|numeric',
         'xl_outlet_id'=>'required',
         'type'=>'required',
         'address'=>'required',
@@ -44,7 +44,7 @@ class OutletEditForm extends Component
     {
         $this->validate();
         $this->outlet->cluster_id = $this->cluster_id;
-        $this->outlet->xl_outlet_id = $this->xl_outlet_id;
+//        $this->outlet->xl_outlet_id = $this->xl_outlet_id;
         $this->outlet->msisdn = $this->msisdn;
         $this->outlet->type = $this->type;
         $this->outlet->name = $this->name;

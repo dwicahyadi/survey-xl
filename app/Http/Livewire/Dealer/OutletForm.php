@@ -3,28 +3,34 @@
 namespace App\Http\Livewire\Dealer;
 
 use App\Models\Cluster;
+use App\Models\Dealer;
 use App\Models\Outlet;
 use App\Models\User;
 use Livewire\Component;
 
 class OutletForm extends Component
 {
-    public  $clusters;
+    public  $clusters, $dealers;
     public $cluster_id, $xl_outlet_id, $msisdn, $type, $name, $address, $province, $city, $micro_cluster, $dealerId;
 
     protected $rules = [
         'name' => 'required|min:6',
         'msisdn'=> 'required|min:10|max:13|unique:outlets',
-        'xl_outlet_id'=>'required|unique:outlets',
+//        'xl_outlet_id'=>'required|unique:outlets',
         'type'=>'required',
         'address'=>'required',
         'city'=>'required',
         'micro_cluster'=>'required',
+        'dealerId'=>'required',
+        'cluster_id'=>'required',
     ];
 
     public function mount()
     {
         $this->clusters = Cluster::all();
+        if (!$this->dealerId)
+            $this->dealers = Dealer::all();
+
     }
     public function render()
     {
@@ -38,7 +44,7 @@ class OutletForm extends Component
             'msisdn'=>$this->msisdn,
             'dealer_id'=>$this->dealerId,
             'cluster_id'=>$this->cluster_id,
-            'xl_outlet_id'=>$this->xl_outlet_id,
+//            'xl_outlet_id'=>$this->xl_outlet_id,
             'type'=>$this->type,
             'address'=>$this->address,
             'province'=>$this->province,

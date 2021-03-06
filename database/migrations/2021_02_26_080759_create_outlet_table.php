@@ -17,7 +17,7 @@ class CreateOutletTable extends Migration
             $table->id();
             $table->unsignedBigInteger('cluster_id')->references('id')->on('clusters');
             $table->unsignedBigInteger('dealer_id')->references('id')->on('dealers');
-            $table->string('xl_outlet_id', 50)->unique();
+            $table->string('xl_outlet_id', 50)->unique()->nullable();
             $table->string('msisdn', 15)->unique();
             $table->string('type');
             $table->string('name');

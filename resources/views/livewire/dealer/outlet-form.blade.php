@@ -52,7 +52,7 @@
 
         <div class="form-group mb-4">
             <label for="cluster_id">Cluster</label>
-            <select class="custom-select" id="role" wire:model="cluster_id">
+            <select class="custom-select @error('cluster_id') is-invalid @endif" id="role" wire:model="cluster_id">
                 <option value="0">Choose..</option>
                 @forelse($clusters as $cluster)
                     <option value="{{ $cluster->id }}">{{ $cluster->name }}</option>
@@ -60,6 +60,7 @@
                     <option value="0" disabled>No Cluster. Please add new one</option>
                 @endforelse
             </select>
+            @error('cluster_id') <span class="form-text text-muted text-danger">{{ $message }}</span> @enderror
         </div>
 
         <div class="form-group mb-4">
@@ -67,6 +68,21 @@
             <input type="text" class="form-control @error('micro_cluster') is-invalid @enderror" id="msisdn" wire:model="micro_cluster">
             @error('micro_cluster') <span class="form-text text-muted text-danger">{{ $message }}</span> @enderror
         </div>
+
+        @if($dealers)
+            <div class="form-group mb-4">
+                <label for="micro_cluster">Dealer</label>
+                <select class="custom-select @error('dealer_id') is-invalid @endif" id="role" wire:model="dealerId">
+                    <option value="0">Choose..</option>
+                    @forelse($dealers as $dealer)
+                        <option value="{{ $dealer->id }}">{{ $dealer->name }}</option>
+                    @empty
+                        <option value="0" disabled>No Cluster. Please add new one</option>
+                    @endforelse
+                </select>
+                @error('dealerId') <span class="form-text text-muted text-danger">{{ $message }}</span> @enderror
+            </div>
+        @endif
 
 
         <div class="form-group mb-4">

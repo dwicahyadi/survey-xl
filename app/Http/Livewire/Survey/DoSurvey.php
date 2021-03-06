@@ -17,17 +17,26 @@ class DoSurvey extends Component
     const STORE_FOLDER = 'public/survey/';
     const URL_TARGET = 'storage/survey/';
 
-    public $outlet_id, $dealer_id, $cluster_id, $pic_name, $pic_contact, $note;
+    public $outlet;
+    public $prevResponses;
+    public $pic_name, $pic_contact, $note;
     public $sections;
     public $responses = [];
 
-    public function mount($outlet_id, $cluster_id, $dealer_id)
-    {
-        $this->outlet_id = $outlet_id;
-        $this->cluster_id = $cluster_id;
-        $this->dealer_id = $dealer_id;
+    protected $rules = [
+        'pic_name' => 'required',
+        'pic_contact' => 'required',
+        'responses' => 'required',
+        'responses.*.*' => 'required',
+        'responses.*.file' => 'image|max:1024',
+    ];
 
-        $this->sections = Section::with(['questions'])->whereHas('questions')->get();
+    public function mount()
+    {
+        $this->sections = Section::with(['questions.answers'])->whereHas('questions',function ($q){
+            $q->where('is_active',1);
+        })->get();
+
     }
     public function render()
     {
@@ -36,11 +45,12 @@ class DoSurvey extends Component
 
     public function save()
     {
+        $this->validate();
         $survey = Survey::create([
             'user_id'=>Auth::id(),
-            'cluster_id'=>$this->cluster_id,
-            'dealer_id'=>$this->dealer_id,
-            'outlet_id'=>$this->outlet_id,
+            'cluster_id'=>$this->coutlet->luster_id,
+            'dealer_id'=>$this->outlet->dealer_id,
+            'outlet_id'=>$this->outlet->outlet_id,
             'pic_name'=>$this->pic_name,
             'pic_contact'=>$this->pic_contact,
             'note'=>$this->note]);

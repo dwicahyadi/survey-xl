@@ -23,22 +23,31 @@
                     <label>Response Options</label>
                     <div class="alert alert-info d-flex justify-content-start align-items-center">
                         <div class="alert-inner--icon mr-2">
-                            <i class="fas fa-info-circle fa-2x"></i>
+                            <i class="fas fa-info-circle"></i>
                         </div>
                         <div class="alert-inner--text">
-                            <h5>Only fill when <strong>Respon Type</strong> is <strong class="text-danger">radio_button</strong></h5>
+                            <span>Only fill when <strong>Respon Type</strong> is <strong class="text-danger">radio_button</strong></span>
                         </div>
-
                     </div>
-                    <input type="text" class="form-control my-4" placeholder="blank value will not saved" wire:model="answers.0">
-                    <input type="text" class="form-control my-4" placeholder="blank value will not saved" wire:model="answers.1">
-                    <input type="text" class="form-control my-4" placeholder="blank value will not saved" wire:model="answers.2">
-                    <input type="text" class="form-control my-4" placeholder="blank value will not saved" wire:model="answers.3">
-                    <input type="text" class="form-control my-4" placeholder="blank value will not saved" wire:model="answers.4">
+                    <div class="border-light border rounded p-4">
+                        <strong>Instructions</strong>
+                        <ul>
+                            <li><strong>Index</strong> is used to measure which response is most expected. Bigger is better.</li>
+                            <li><strong>Text</strong> is what is displayed as an option during the survey. Blank text will not be save.</li>
+                        </ul>
+                    </div>
+                    @for($i = 0; $i <= 4; $i++)
+                        <div class="w-100 d-flex">
+                            <div class="mr-2">
+                                <input type="number" class="form-control my-4" placeholder="index" wire:model="answers.{{ $i }}.index">
+                            </div>
+                            <div class="flex-fill">
+                                <input type="text" class="form-control my-4" placeholder="text" wire:model="answers.{{ $i }}.text">
+                            </div>
+                        </div>
+                    @endfor
 
-                    <pre>
-                        {{ var_dump($answers) }}
-                    </pre>
+
 
                 </div>
                 <hr>

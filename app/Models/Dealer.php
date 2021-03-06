@@ -14,6 +14,8 @@ class Dealer extends Model
         'address'
     ];
 
+    protected $hidden = ["created_at", "updated_at"];
+
     public function users(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
         return $this->hasMany(User::class);

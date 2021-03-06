@@ -11,6 +11,8 @@ class Cluster extends Model
 
     protected $fillable = ['name'];
 
+    protected $hidden = ["created_at", "updated_at"];
+
     public function dealer(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
         return $this->belongsTo(Dealer::class);

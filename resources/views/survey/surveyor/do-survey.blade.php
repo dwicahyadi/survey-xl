@@ -5,7 +5,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-8 col-xl-8">
-                    @livewire('survey.do-survey',['outlet_id'=>$outlet->id,'dealer_id'=>$outlet->dealer_id,'cluster_id'=>$outlet->cluster_id, ])
+                    @livewire('survey.do-survey',['outlet'=> $outlet ])
                 </div>
             </div>
         </div>

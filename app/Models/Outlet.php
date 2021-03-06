@@ -11,6 +11,8 @@ class Outlet extends Model
     protected $fillable = ['cluster_id','dealer_id','xl_outlet_id','type','name','msisdn','address'
         ,'micro_cluster', 'province','city'];
 
+    protected $hidden = ["created_at", "updated_at"];
+
     public function cluster(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
         return $this->belongsTo(Cluster::class);

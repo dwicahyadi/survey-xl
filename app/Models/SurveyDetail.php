@@ -13,6 +13,8 @@ class SurveyDetail extends Model
 
     protected $fillable = ['survey_id','question_id','response'];
 
+    protected $hidden = ["created_at", "updated_at"];
+
     public function question(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
         return $this->belongsTo(Question::class);

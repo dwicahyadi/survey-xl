@@ -31,6 +31,7 @@ class Surveyor extends Controller
             return Redirect::back()->withErrors(['You dont have permission to do that action!']);
         if (!Auth::user()->can('manage all dealers') && Auth::user()->dealer_id != $outlet->dealer_id)
             return Redirect::back()->withErrors(['This outlet is not under your dealer']);
+
         return view('survey.surveyor.do-survey', ['outlet'=>$outlet]);
     }
 

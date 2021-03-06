@@ -10,6 +10,8 @@ class Survey extends Model
     use HasFactory;
     protected $fillable = ['user_id','cluster_id','dealer_id','outlet_id','note','is_open','is_audited','pic_name','pic_contact'];
 
+    protected $hidden = ["created_at", "updated_at"];
+
     public function details(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
         return $this->hasMany(SurveyDetail::class);
