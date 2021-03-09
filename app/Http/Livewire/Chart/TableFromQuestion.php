@@ -9,14 +9,23 @@ use Livewire\Component;
 class TableFromQuestion extends Component
 {
     public $question_id;
-    public $data;
+    public $question;
+    public $elementId, $title, $data;
 
-    public function mount($question_id)
-    {
-        $this->data = QueryReport::getResponseTextFromQuestion($question_id);
-    }
+    public $dealers, $clusters, $startDate, $endDate, $dealer_id, $cluster_id;
+
+    protected $queryString = ['startDate','endDate', 'dealer_id', 'cluster_id'];
+
+
     public function render()
     {
+        $this->data = QueryReport::getResponseTextFromQuestion(
+            $this->question_id,
+            $this->startDate ?? '',
+            $this->endDate ?? '',
+            $this->dealer_id ?? 0,
+            $this->cluster_id ?? 0,
+        );
         return view('livewire.chart.table-from-question');
     }
 }

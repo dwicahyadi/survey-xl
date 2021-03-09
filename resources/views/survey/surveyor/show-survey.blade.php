@@ -45,7 +45,23 @@
                                 @if($response->question->type == 'file')
                                     <img src="{{ asset('storage/survey/'.$response->response) }}" alt="">
                                 @else
-                                    {{ $response->response }}
+                                    <div class="d-flex justify-content-between align-content-between">
+                                        <span>{{ $response->response }}</span>
+                                        @if($response->status == 'greater')
+                                            <span class="text-success p-2">
+                                                <i class="fas fa-chevron-circle-up"></i> Greater
+                                            </span>
+                                        @elseif($response->status == 'lower')
+                                            <<span class="text-fanger p-2">
+                                                <i class="fas fa-chevron-circle-down"></i> Lower
+                                            </span>
+                                        @else
+                                            <span class="text-info p-2">
+                                                <i class="fas fa-chevron-circle-right"></i> Equals
+                                            </span>
+                                        @endif
+
+                                    </div>
                                 @endif
                             </div>
                         </div>

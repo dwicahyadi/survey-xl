@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
 
-class DealerController extends Controller
+class UserSettingController extends Controller
 {
     public function __construct()
     {
@@ -16,16 +16,8 @@ class DealerController extends Controller
 
     public function index()
     {
-        if(!Auth::user()->can('manage all dealers'))
+        if(!Auth::user()->can('access settings'))
             return Redirect::back()->withErrors(['You dont have permission to do that action!']);
-
-        return view('dealer.index');
+        return view('setting.user-setting');
     }
-
-    public function show(Dealer $dealer)
-    {
-        return view('dealer.show',['dealer'=>$dealer]);
-    }
-
-
 }

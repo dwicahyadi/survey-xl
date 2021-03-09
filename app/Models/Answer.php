@@ -8,9 +8,9 @@ use Illuminate\Database\Eloquent\Model;
 class Answer extends Model
 {
     use HasFactory;
-    protected $fillable = ['section_id','text'];
+    protected $fillable = ['section_id','text', 'index'];
 
-    protected $hidden = ["created_at", "updated_at"];
+    protected $hidden = ['created_at', 'updated_at'];
 
     public function question(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {

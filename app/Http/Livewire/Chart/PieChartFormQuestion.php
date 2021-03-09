@@ -12,15 +12,21 @@ class PieChartFormQuestion extends Component
     public $question;
     public $elementId, $title, $data;
 
-    public function mount($question_id)
-    {
-        $this->elementId = 'pieChart_'.$question_id;
-        $this->question = Question::find($question_id);
-        $this->title = $this->question->text;
-        $this->data = json_encode(QueryReport::summaryResponseFromQuestion($question_id));
-    }
+    public $dealers, $clusters, $startDate, $endDate, $dealer_id, $cluster_id;
+
+    protected $queryString = ['startDate','endDate', 'dealer_id', 'cluster_id'];
+
+
     public function render()
     {
+        $this->elementId = 'pieChart_'.$this->question_id;
+        $this->data = json_encode(QueryReport::summaryResponseFromQuestion(
+            $this->question_id,
+            $this->startDate ?? '',
+            $this->endDate ?? '',
+            $this->dealer_id ?? 0,
+            $this->cluster_id ?? 0,
+        ));
         return view('livewire.chart.pie-chart-form-question');
     }
 }

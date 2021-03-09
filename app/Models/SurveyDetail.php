@@ -11,7 +11,7 @@ class SurveyDetail extends Model
 
     protected $table = 'answer_question_survey';
 
-    protected $fillable = ['survey_id','question_id','response'];
+    protected $fillable = ['survey_id','question_id','response','index','status'];
 
     protected $hidden = ["created_at", "updated_at"];
 

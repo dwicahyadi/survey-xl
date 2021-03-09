@@ -31,6 +31,7 @@ class QuestionCreate extends Component
     public function save()
     {
         $this->validate();
+        
         SaveQuestion::create($this->section_id, $this->text, $this->type, $this->answers);
         session()->flash('question_message', 'Added new Question');
         return $this->redirect(route('survey-question.create-question', ['section'=>$this->section_id]));

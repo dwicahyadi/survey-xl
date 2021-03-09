@@ -9,17 +9,23 @@ use Livewire\Component;
 class ImageFromQuestion extends Component
 {
     public $question_id;
-    public $data, $random;
+    public $question;
+    public $elementId, $title, $data, $random;
 
-    public function mount($question_id)
-    {
-        $this->data = QueryReport::getResponseTextFromQuestion($question_id);
+    public $dealers, $clusters, $startDate, $endDate, $dealer_id, $cluster_id;
 
-    }
+    protected $queryString = ['startDate','endDate', 'dealer_id', 'cluster_id'];
+
+
     public function render()
     {
-//        $this->random = '';
-//        $this->random = (array) $this->data[rand(0, count($this->data)-1)];
+        $this->data = QueryReport::getResponseTextFromQuestion(
+            $this->question_id,
+            $this->startDate ?? '',
+            $this->endDate ?? '',
+            $this->dealer_id ?? 0,
+            $this->cluster_id ?? 0,
+        );
         return view('livewire.chart.image-from-question');
     }
 

@@ -10,6 +10,14 @@
                 </div>
             </div>
 
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="mb-4">
+                        @livewire('report.filter')
+                    </div>
+                </div>
+            </div>
+
             @forelse($sections as $section)
                 <h4 class="display-4">{{ $section->name }}</h4>
                 <div class="row">

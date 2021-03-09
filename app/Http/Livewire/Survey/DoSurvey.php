@@ -6,6 +6,7 @@ use App\Models\Section;
 use App\Models\Survey;
 use App\Models\SurveyDetail;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 use Intervention\Image\Facades\Image;
 use Livewire\Component;
@@ -26,37 +27,60 @@ class DoSurvey extends Component
     protected $rules = [
         'pic_name' => 'required',
         'pic_contact' => 'required',
-        'responses' => 'required',
-        'responses.*.*' => 'required',
         'responses.*.file' => 'image|max:1024',
     ];
 
     public function mount()
     {
-        $this->sections = Section::with(['questions.answers'])->whereHas('questions',function ($q){
-            $q->where('is_active',1);
-        })->get();
+
 
     }
     public function render()
     {
+        $this->sections = Section::with(['questions.answers'])->whereHas('questions',function ($q){
+            $q->where('is_active',1);
+        })->get();
+
+        $last_survey = $this->outlet->latest_survey[0] ?? [];
+        if($last_survey)
+        {
+            $data = $last_survey->setRelation('details', $last_survey->details->keyBy('id'));
+            foreach ($data->details as $detail) {
+                $this->prevResponses[$detail->question_id] = (object) ['response'=>$detail->response, 'index'=>$detail->index];
+            }
+
+        }
         return view('livewire.survey.do-survey');
     }
 
     public function save()
     {
+
         $this->validate();
+
+        DB::beginTransaction();
+
         $survey = Survey::create([
             'user_id'=>Auth::id(),
-            'cluster_id'=>$this->coutlet->luster_id,
+            'cluster_id'=>$this->outlet->cluster_id,
             'dealer_id'=>$this->outlet->dealer_id,
-            'outlet_id'=>$this->outlet->outlet_id,
+            'outlet_id'=>$this->outlet->id,
             'pic_name'=>$this->pic_name,
             'pic_contact'=>$this->pic_contact,
             'note'=>$this->note]);
         $data = [];
+
         foreach ($this->responses as $question_id => $response)
         {
+            $text = 'no response';
+            $index = 0;
+            $prevIndex = $text->prevResponses[$question_id] ?? 0;
+            if (isset($response['value']))
+            {
+                $responseObject = json_decode($response['value']);
+                $text = $responseObject->text;
+                $index = $responseObject->index;
+            }
             if(isset($response['file']))
             {
                 /*$file = $response['file'];
@@ -72,13 +96,34 @@ class DoSurvey extends Component
                 $compressedImage->stream(); // <-- Key point
                 Storage::disk('local')->put(self::STORE_FOLDER . $imageName, $compressedImage, 'public');
 
-                $response['value'] =  $imageName;
+                $text = $imageName;
+                $index = 1;
 
             }
-            array_push($data, ['survey_id'=>$survey->id,'question_id'=>$question_id, 'response'=>$response['value']]);
-        }
 
+            if ($index > $prevIndex)
+            {
+                $status = 'greater';
+            }elseif ($index < $prevIndex)
+            {
+                $status = 'lower';
+            }else
+            {
+                $status = 'equals';
+            }
+            array_push($data, [
+                'survey_id'=>$survey->id,
+                'question_id'=>$question_id,
+                'response'=>$text,
+                'index'=>$index,
+                'status'=>$status,
+                'created_at'=>now()
+            ]);
+        }
         SurveyDetail::insert($data);
+
+
+        DB::commit();
 
         return redirect(route('surveyor.index'));
 

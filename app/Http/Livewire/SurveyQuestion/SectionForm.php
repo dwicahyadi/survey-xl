@@ -9,6 +9,8 @@ class SectionForm extends Component
 {
     public $name;
 
+    protected $listeners = ['saved' => '$refresh'];
+
     protected $rules = [
         'name' => 'required|min:6|unique:sections',
     ];

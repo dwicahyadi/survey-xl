@@ -19,12 +19,12 @@
 
         <div class="form-group">
             <label>PIC Name</label>
-            <input type="text" class="form-control @error('pic_name') is-invalid @enderror" wire:model.defer="pic_name">
+            <input type="text" class="form-control @error('pic_name') is-invalid @enderror" wire:model="pic_name">
             @error('pic_name') <span class="form-text text-muted text-danger">{{ $message }}</span> @enderror
         </div>
         <div class="form-group">
             <label>PIC Contact</label>
-            <input type="text" class="form-control @error('pic_contact') is-invalid @enderror" wire:model.defer="pic_contact">
+            <input type="text" class="form-control @error('pic_contact') is-invalid @enderror" wire:model="pic_contact">
             @error('pic_contact') <span class="form-text text-muted text-danger">{{ $message }}</span> @enderror
         </div>
 
@@ -32,7 +32,7 @@
 
         <div class="form-group">
             <label>Note (optional)</label>
-            <textarea class="form-control" wire:model.defer="note"></textarea>
+            <textarea class="form-control" wire:model="note"></textarea>
         </div>
     </div>
     <hr>
@@ -42,6 +42,7 @@
             <div class="card my-4 shadow-soft @error('responses.'.$question->id.'.*') border-danger text-danger @enderror" wire:key="question-{{ $question->id }}">
                 <div class="card-header border-light border-bottom">
                     <h4>{{ $question->text }}</h4>
+                    <small><i class="fas fa-info-circle text-info"></i> Last response : {{ trim($prevResponses[$question->id]->response ?? '-')  }}</small>
                     @error('responses.'.$question->id.'.*') <span class="form-text text-muted text-danger">{{ $message }}</span> @enderror
                 </div>
                 <div class="card-body p-0">
@@ -51,7 +52,7 @@
                         <div class="list-group">
                             @forelse($question->answers as $answer)
                                 <input type="radio"
-                                       value="{{ $answer->text }}"
+                                       value="{{ json_encode($answer) }}"
                                        id="{{ 'answer-question-'.$question->id.'-'.$answer->id }}"
                                        wire:model.defer="responses.{{$question->id}}.value"
                                 />
@@ -108,5 +109,6 @@
     <hr>
 
     <button class="btn btn-primary btn-block" wire:click="save" wire:loading.attr="disabled"><i class="fas fa-check-circle"></i> Save Survey</button>
+    <hr>
     {{ $errors }}
 </div>

@@ -22,16 +22,12 @@ class QuestionList extends Component
         return view('livewire.survey-question.question-list');
     }
 
-    public function selectSectionId(int $id)
+    public function selectSectionId(Section $section)
     {
 //        $this->selectedSectionId = $id;
 
-        $this->selectedSection = $this->sections->where('id',$id)->first();
+//        $this->selectedSection = $this->sections->where('id',$id)->first();
+        $this->selectedSection = $section;
     }
 
-    public function toggleActive(Question $question)
-    {
-        $question->is_active = !$question->is_active ;
-        $question->save();
-    }
 }

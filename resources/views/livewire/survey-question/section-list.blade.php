@@ -3,7 +3,7 @@
         @forelse($sections as $section)
             <a class="list-group-item @if($selectedSectionId == $section->id) active text-facebook @endif"
                wire:key="section-{{ $section->id }}"
-               wire:click="$emit('selectSectionId',{{ $section->id }})">
+               wire:click="$emit('selectSectionId',{{ $section }})">
                 <strong>{{ $section->name }}</strong>
             </a>
         @empty

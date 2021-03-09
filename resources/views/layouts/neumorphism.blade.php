@@ -81,7 +81,7 @@
 
                                         <div class="card-body">
                                             <h3 class="h5 mb-2">{{ Auth::user()->name }}</h3>
-                                            <span class="h6 font-weight-normal text-gray mb-3">Marketing</span>
+                                            <span class="h6 font-weight-normal text-gray mb-3">{{ Auth::user()->roles[0]->name }}</span>
                                             <a class="btn btn-primary btn-block mt-2" href="#"
                                             <i class="fa fa-user mr-2"></i> Profile
                                             </a>

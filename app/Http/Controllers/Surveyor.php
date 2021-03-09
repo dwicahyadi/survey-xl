@@ -48,6 +48,7 @@ class Surveyor extends Controller
     {
         $survey = Survey::with('details','user','outlet','cluster','dealer')
             ->where('id',$id)->firstOrFail();
+
         return view('survey.surveyor.show-survey', ['survey'=>$survey]);
     }
 

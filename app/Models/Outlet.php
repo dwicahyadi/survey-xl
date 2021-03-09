@@ -28,8 +28,8 @@ class Outlet extends Model
         return $this->hasMany(Survey::class);
     }
 
-    public function latest_survey()
+    public function latest_survey(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
-        return $this->surveys()->latest()->take(1);
+        return $this->surveys()->with('details')->latest()->take(1);
     }
 }

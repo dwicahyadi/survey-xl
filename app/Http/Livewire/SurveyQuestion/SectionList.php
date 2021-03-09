@@ -17,11 +17,12 @@ class SectionList extends Component
 
     public function render()
     {
+        $this->sections = Section::all();
         return view('livewire.survey-question.section-list');
     }
 
-    public function selectSectionId(int $id)
+    public function selectSectionId(Section $section)
     {
-        $this->selectedSectionId = $id;
+        $this->selectedSectionId = $section->id;
     }
 }
