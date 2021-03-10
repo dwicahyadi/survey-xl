@@ -7,6 +7,7 @@ use App\Exports\SurveyDetailsExport;
 use App\Helpers\QueryReport;
 use App\Models\Section;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Redirect;
 use Maatwebsite\Excel\Facades\Excel;
 
 class SurveySummaryController extends Controller
@@ -35,6 +36,8 @@ class SurveySummaryController extends Controller
             $request['dealer_id'] ?? 0,
             $request['cluster_id'] ?? 0,
         );
+        if ($data->count() > 10000)
+            return Redirect::back()->withErrors(['Oops! Data is too big, it\'s more than 10,000 records. Please use filter to make data more specific and smaller']);
 
         return Excel::download(new SurveyDetailsExport($data), 'surveysDetail.xlsx');
     }

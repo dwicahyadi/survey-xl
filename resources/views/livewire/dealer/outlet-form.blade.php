@@ -20,7 +20,7 @@
 
         <div class="form-group mb-4">
             <label for="xl_outlet_id">XL Outlet ID</label>
-            <input type="text" class="form-control @error('xl_outlet_id') is-invalid @enderror" id="msisdn" wire:model="xl_outlet_id">
+            <input type="text" class="form-control @error('xl_outlet_id') is-invalid @enderror" id="xl_outlet_id" wire:model="xl_outlet_id">
             @error('xl_outlet_id') <span class="form-text text-muted text-danger">{{ $message }}</span> @enderror
         </div>
 

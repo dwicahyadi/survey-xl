@@ -44,7 +44,7 @@ class OutletForm extends Component
             'msisdn'=>$this->msisdn,
             'dealer_id'=>$this->dealerId,
             'cluster_id'=>$this->cluster_id,
-//            'xl_outlet_id'=>$this->xl_outlet_id,
+            'xl_outlet_id'=>$this->xl_outlet_id,
             'type'=>$this->type,
             'address'=>$this->address,
             'province'=>$this->province,
