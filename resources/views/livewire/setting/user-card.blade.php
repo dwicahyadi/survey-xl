@@ -10,7 +10,7 @@
                     <small class="mr-2"><i class="fas fa-building"></i> {{ $user->dealer->name ?? 'no dealer' }}</small>
                     <small class="mr-2"><i class="fas fa-envelope"></i> {{ $user->email }}</small>
                     <small class="mr-2"><i class="fas fa-user-lock"></i> {{ $user->roles[0]->name ?? 'no role' }}</small>
-                    <small class="mr-2"><i class="fas fa-key"></i> {{ $user->getAllPermissions()->pluck('name') ?? 'no dealer' }}</small>
+                    <small class="mr-2"><i class="fas fa-key"></i> {{ $user->roles[0]->permissions->pluck('name') ?? 'no dealer' }}</small>
                 </div>
             @else
                 <div class="pl-4 flex-fill">

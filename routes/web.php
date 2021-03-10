@@ -46,6 +46,7 @@ Route::prefix('manage/')->group(function (){
 Route::prefix('report')->name('report.')->group(function (){
     Route::get('/summary/',[\App\Http\Controllers\SurveySummaryController::class,'index'])->name('summary');
     Route::get('/list/',[\App\Http\Controllers\SurveySummaryController::class,'list'])->name('list');
+    Route::get('/export/',[\App\Http\Controllers\SurveySummaryController::class,'exportDetail'])->name('export');
 });
 
 Route::prefix('setting')->name('setting.')->group(function (){

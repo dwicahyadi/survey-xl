@@ -6,7 +6,13 @@
             <div class="row justify-content-center text-center pt-6">
                 <div class="col-lg-12 col-xl-12">
                     <h1 class="display-2 mb-3">Survey Summary</h1>
-                    <p class="lead px-md-6 mb-5">Here result summary from all surveys</p>
+                    <p class="lead px-md-6 mb-2">Here result summary from all surveys</p>
+                    <div class="shadow-inset p-4 rounded mb-4">
+                        <a href="{{ route('report.export', request()->all()) }}">
+                            <i class="fas fa-file-excel text-success mr-2"></i>
+                            Download Survey Details as Excel File
+                        </a>
+                    </div>
                 </div>
             </div>
 

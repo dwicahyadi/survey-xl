@@ -110,5 +110,9 @@
 
     <button class="btn btn-primary btn-block" wire:click="save" wire:loading.attr="disabled"><i class="fas fa-check-circle"></i> Save Survey</button>
     <hr>
-    {{ $errors }}
-</div>
+
+
+    @if($errors->any())
+        {!! implode('', $errors->all('<p class="text-danger"><i class="fas fa-times mr-2"></i>:message</p>')) !!}
+    @endif
+</p>

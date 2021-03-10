@@ -76,4 +76,40 @@ class QueryReport
 
         return $query->get();
     }
+
+
+    public static function getDetailResponseFromSurveys(string $start_date, string $end_date, int $dealer_id = 0, int $cluster_id = 0): \Illuminate\Support\Collection
+    {
+        $query =  DB::table('answer_question_survey')
+            ->join('surveys','answer_question_survey.survey_id','=','surveys.id')
+            ->join('questions','answer_question_survey.question_id','=','questions.id')
+            ->join('users','surveys.user_id','=','users.id')
+            ->join('dealers','surveys.dealer_id','=','dealers.id')
+            ->join('clusters','surveys.cluster_id','=','clusters.id')
+            ->join('outlets','surveys.outlet_id','=','outlets.id')
+            ->select(DB::raw('surveys.created_at as DateTime,
+            surveys.id as SurveyID,
+            users.name as Surveyor,
+            dealers.name as Dealer,
+            clusters.name as Cluster,
+            outlets.name as Outlet,
+            questions.text as Questions,
+            response as Response,
+            status as "VS previous survey"
+            '));
+
+        if ($dealer_id)
+            $query->where('dealer_id', $dealer_id);
+
+        if ($cluster_id)
+            $query->where('cluster_id', $cluster_id);
+
+        if ($start_date)
+            $query->whereDate('surveys.created_at','>=', $start_date);
+
+        if ($end_date)
+            $query->whereDate('surveys.created_at','<=', $end_date);
+
+        return $query->get();
+    }
 }

@@ -29,7 +29,7 @@ class UserList extends Component
     {
 
         return view('livewire.setting.user-list',[
-        'users' => User::with('roles','dealer')
+        'users' => User::with('roles.permissions','dealer')
             ->where('name','like', '%'.$this->search.'%')->paginate(10),
         ]);
     }

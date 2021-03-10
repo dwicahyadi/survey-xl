@@ -3,7 +3,11 @@
 namespace App\Http\Controllers;
 
 
+use App\Exports\SurveyDetailsExport;
+use App\Helpers\QueryReport;
 use App\Models\Section;
+use Illuminate\Http\Request;
+use Maatwebsite\Excel\Facades\Excel;
 
 class SurveySummaryController extends Controller
 {
@@ -21,5 +25,17 @@ class SurveySummaryController extends Controller
     public function list()
     {
         return view('report.list');
+    }
+
+    public function exportDetail(Request $request)
+    {
+        $data = QueryReport::getDetailResponseFromSurveys(
+            $request['startDate'] ?? '',
+            $request['endDate'] ?? '',
+            $request['dealer_id'] ?? 0,
+            $request['cluster_id'] ?? 0,
+        );
+
+        return Excel::download(new SurveyDetailsExport($data), 'surveysDetail.xlsx');
     }
 }
