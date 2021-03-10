@@ -99,10 +99,10 @@ class QueryReport
             '));
 
         if ($dealer_id)
-            $query->where('dealer_id', $dealer_id);
+            $query->where('surveys.dealer_id', $dealer_id);
 
         if ($cluster_id)
-            $query->where('cluster_id', $cluster_id);
+            $query->where('surveys.cluster_id', $cluster_id);
 
         if ($start_date)
             $query->whereDate('surveys.created_at','>=', $start_date);
