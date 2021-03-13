@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 
 use App\Exports\SurveyDetailsExport;
 use App\Helpers\QueryReport;
+use App\Models\Cluster;
+use App\Models\Dealer;
+use App\Models\Question;
 use App\Models\Section;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
@@ -40,5 +43,24 @@ class SurveySummaryController extends Controller
             return Redirect::back()->withErrors(['Oops! Data is too big, it\'s more than 10,000 records. Please use filter to make data more specific and smaller']);
 
         return Excel::download(new SurveyDetailsExport($data), 'surveysDetail.xlsx');
+    }
+
+    public function pivot(Request $request)
+    {
+        $question = Question::where('id',$request['question_id'])->firstOrFail();
+        $dealer = Dealer::find($request['dealer_id']);
+        $cluster = Cluster::find($request['cluster_id']);
+        $data = QueryReport::getDetailResponseFromQuestion(
+            $request['question_id'] ?? 0,
+            $request['startDate'] ?? '',
+            $request['endDate'] ?? '',
+            $request['dealer_id'] ?? 0,
+            $request['cluster_id'] ?? 0,
+        );
+
+        if ($data->count() > 10000)
+            return Redirect::back()->withErrors(['Oops! Data is too big, it\'s more than 10,000 records. Please use filter to make data more specific and smaller']);
+
+        return view('layouts.pivot', compact('question','dealer', 'cluster', 'data'));
     }
 }

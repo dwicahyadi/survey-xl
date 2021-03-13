@@ -4,11 +4,13 @@ namespace App\Http\Livewire\Dealer;
 
 use App\Models\User;
 use Livewire\Component;
+use Spatie\Permission\Models\Role;
 
 class UserEditForm extends Component
 {
     public $user;
     public $name, $email, $password = 'password', $role, $dealerId;
+    public $roles;
 
     protected $rules = [
         'name' => 'required|min:6',
@@ -19,6 +21,7 @@ class UserEditForm extends Component
         $this->name = $this->user->name;
         $this->email = $this->user->email;
         $this->role = $this->user->roles[0]->name ?? 'surveyor';
+        $this->roles = Role::where('id','>',2)->get();
     }
     public function render()
     {

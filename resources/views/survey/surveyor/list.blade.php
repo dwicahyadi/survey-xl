@@ -21,7 +21,7 @@
                                 </div>
                                 <div class="card-footer d-flex justify-content-between">
                                     <span><i class="fas fa-clock mr-2"></i> {{ $survey->created_at }}</span>
-                                    <span><i class="fas fa-user mr-2"></i> {{ $survey->user->name }}</span>
+                                    <span><i class="fas fa-user mr-2"></i> {{ $survey->user->name ?? 'Deleted User' }}</span>
                                 </div>
                             </div>
                         </a>

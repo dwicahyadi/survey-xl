@@ -20,8 +20,11 @@
         <div class="form-group mb-4">
             <label for="role">Role</label>
             <select class="custom-select" id="role" wire:model="role">
-                <option value="surveyor">surveyor</option>
-                <option value="admin dealer">admin dealer</option>
+                @forelse($roles as $row)
+                    <option value="{{ $row->name }}">{{ $row->name }}</option>
+                @empty
+                    <option value="">No role available</option>
+                @endforelse
             </select>
         </div>
 
@@ -29,5 +32,11 @@
             <button type="button" class="btn btn-primary mt-2 btn-block" wire:click="save">Update</button>
             <button type="button" class="btn btn-primary mt-2 btn-block" wire:click="$emitUp('closeEdit')">Close</button>
         </div>
+    </form>
+
+    <form action="{{ route('dealer.user.delete',['user'=>$user]) }}" method="post">
+        @method('delete')
+        @csrf
+        <a class="text-danger mr-2 mb-4" onclick="return confirm('Are you sure want to delete user {{ $user->name }}? This action can\'t be undone.')"><i class="fas fa-trash"></i> Delete Images Older than 1 month</a>
     </form>
 </div>

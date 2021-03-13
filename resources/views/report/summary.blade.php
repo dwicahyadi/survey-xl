@@ -48,6 +48,10 @@
                                     @if($question->type == 'file')
                                         @livewire('chart.image-from-question',['question_id'=>$question->id])
                                     @endif
+
+                                    <a href="{{ route('report.pivot', http_build_query(array_merge(request()->all(),['question_id'=>$question->id]))) }}">
+                                        Show In PivotTable Mode
+                                    </a>
                                 </div>
                             </div>
                         </div>

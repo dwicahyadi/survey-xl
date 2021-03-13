@@ -87,6 +87,13 @@
                             <span class="small">Clean up storage, reset application</span>
                         </div>
                     </a>
+                    <a href="{{ route('setting.role') }}" class="list-group-item list-group-item-action d-flex align-items-center p-0 py-3 px-lg-4">
+                        <span class="icon icon-sm icon-secondary"><span class="fas fa-user-lock"></span></span>
+                        <div class="ml-4">
+                            <span class="text-dark d-block">Roles</span>
+                            <span class="small">Manage roles and <per></per>missions</span>
+                        </div>
+                    </a>
                     <a href="{{ route('setting.user') }}" class="list-group-item list-group-item-action d-flex align-items-center p-0 py-3 px-lg-4">
                         <span class="icon icon-sm icon-secondary"><span class="fas fa-users-cog"></span></span>
                         <div class="ml-4">

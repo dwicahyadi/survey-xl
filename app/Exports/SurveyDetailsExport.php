@@ -30,10 +30,16 @@ class SurveyDetailsExport implements FromCollection, WithHeadings
             'Surveyor',
             'Dealer',
             'Cluster',
-            'Outlet',
+            'Micro Cluster',
+            'Province',
+            'City',
+            'Subdistrict',
+            'MSISDN',
+            'Outlet Name',
+            'Outlet Type',
             'Questions',
             'Response',
-            'VS previous survey',
+            'Status'
         ];
     }
 }

@@ -11,6 +11,7 @@ class QuestionCreate extends Component
     public $response_types = ['radio_button','input_number','input_text','file'];
     public $section_id, $type, $text;
     public $answers = [];
+    public $isRadio = 0;
 
     protected $rules = [
         'text' => 'required|min:6|unique:questions',
@@ -28,10 +29,19 @@ class QuestionCreate extends Component
         return view('livewire.survey-question.question-create');
     }
 
+    public function updatedType($value)
+    {
+        if ($value == 'radio_button')
+            $this->isRadio = 1;
+        else
+            $this->isRadio = 0;
+    }
+
+
     public function save()
     {
         $this->validate();
-        
+
         SaveQuestion::create($this->section_id, $this->text, $this->type, $this->answers);
         session()->flash('question_message', 'Added new Question');
         return $this->redirect(route('survey-question.create-question', ['section'=>$this->section_id]));

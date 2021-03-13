@@ -12,7 +12,7 @@
                 </div>
                 <div>
                     <button class="btn btn-sm btn-primary mr-2" wire:click="$set('editing',1)">Edit</button>
-                    <button class="btn btn-sm btn-primary" wire:click="resetPassword">Reset Password</button>
+                    <button class="btn btn-sm btn-primary" wire:click="resetPassword" onclick="alert('New password is password')">Reset Password</button>
                 </div>
             @else
                 <div class="pl-4 flex-fill">

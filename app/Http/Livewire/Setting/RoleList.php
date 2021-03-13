@@ -1,21 +1,20 @@
 <?php
 
-namespace App\Http\Livewire\Dealer;
+namespace App\Http\Livewire\Setting;
 
 use App\Models\User;
 use Livewire\Component;
 use Livewire\WithPagination;
+use Spatie\Permission\Models\Permission;
 use Spatie\Permission\Models\Role;
 
-class UserList extends Component
+class RoleList extends Component
 {
 
     use WithPagination;
     protected $paginationTheme = 'bootstrap';
 
-    public $search;
-
-    public $dealerId;
+    public $search, $permissions;
 
     protected $queryString = [
         'search' => ['except' => ''],
@@ -23,17 +22,21 @@ class UserList extends Component
     ];
     protected $listeners = ['saved'=>'$refresh'];
 
-
     public function updatingSearch()
     {
         $this->resetPage();
     }
 
+    public function mount()
+    {
+        $this->permissions = Permission::all();
+    }
+
     public function render()
     {
 
-        return view('livewire.dealer.user-list',[
-        'users' => User::where('dealer_id',$this->dealerId)
+        return view('livewire.setting.role-list',[
+        'roles' => Role::with('permissions')
             ->where('name','like', '%'.$this->search.'%')->paginate(10),
         ]);
     }

@@ -37,7 +37,19 @@ class RolePermissionSeeder extends Seeder
         Role::create(['name' => 'admin dealer'])
             ->givePermissionTo(['manage a dealer']);
 
-        Role::create(['name' => 'surveyor'])
+        Role::create(['name' => 'HOS'])
+            ->givePermissionTo(['survey']);
+
+        Role::create(['name' => 'TS'])
+            ->givePermissionTo(['survey']);
+
+        Role::create(['name' => 'GM Dealer'])
+            ->givePermissionTo(['survey']);
+
+        Role::create(['name' => 'BM Dealer'])
+            ->givePermissionTo(['survey']);
+
+        Role::create(['name' => 'SPV Dealer'])
             ->givePermissionTo(['survey']);
 
 

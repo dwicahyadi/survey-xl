@@ -4,15 +4,23 @@ namespace App\Http\Livewire\Dealer;
 
 use App\Models\User;
 use Livewire\Component;
+use Spatie\Permission\Models\Role;
 
 class UserForm extends Component
 {
     public $name, $email, $password = 'password', $role, $dealerId;
 
+    public $roles;
+
     protected $rules = [
         'name' => 'required|min:6',
         'email' => 'required|min:6|email|unique:users',
     ];
+
+    public function mount()
+    {
+        $this->roles = Role::where('id','>',2)->get();
+    }
     public function render()
     {
         return view('livewire.dealer.user-form');

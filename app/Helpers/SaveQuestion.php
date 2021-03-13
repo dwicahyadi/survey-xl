@@ -24,8 +24,8 @@ class SaveQuestion
     {
         $filteredAnswers = array_filter($answers);
         $data = [];
-        foreach ($filteredAnswers as $filteredAnswer) {
-            array_push($data, ['question_id'=>$question->id, 'text'=>$filteredAnswer['text'], 'index'=>$filteredAnswer['index'], ] );
+        foreach ($filteredAnswers as $index => $filteredAnswer) {
+            array_push($data, ['question_id'=>$question->id, 'text'=>$filteredAnswer['text'], 'index'=>$index, ] );
         }
         Answer::insert($data);
     }

@@ -8,7 +8,7 @@
             @if($question->type == 'radio_button')
                 <ul>
                     @forelse($question->answers as $answer)
-                        <li>{{ $answer->text }}. index ({{ $answer->index }})</li>
+                        <li>{{ $answer->text }}.</li>
                     @empty
                         <li>----No Response Option Availabe----</li>
                     @endforelse

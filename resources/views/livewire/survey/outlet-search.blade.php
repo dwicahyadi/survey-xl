@@ -37,7 +37,7 @@
                 @isset($outlet->latest_survey[0])
                     <h5>
                         <span class="text-danger">{{ \Carbon\Carbon::createFromTimestamp(strtotime($outlet->latest_survey[0]->created_at))->diffForHumans() }}</span>
-                        by {{ $outlet->latest_survey[0]->user->name }}
+                        by {{ $outlet->latest_survey[0]->user->name ?? 'Deleted User' }}
                     </h5>
                 @else
                     <span class="text-danger">Never</span>

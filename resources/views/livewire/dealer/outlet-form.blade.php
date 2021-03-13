@@ -24,11 +24,20 @@
             @error('xl_outlet_id') <span class="form-text text-muted text-danger">{{ $message }}</span> @enderror
         </div>
 
+
         <div class="form-group mb-4">
-            <label for="type">Type</label>
-            <input type="text" class="form-control @error('type') is-invalid @enderror" id="type" wire:model="type">
+            <label for="province">City</label>
+            <select class="custom-select @error('type') is-invalid @endif" id="role" wire:model="type">
+                <option value="0">Choose..</option>
+                @forelse($types as $opt_type)
+                    <option value="{{ $opt_type->name }}">{{ $opt_type->name }}</option>
+                @empty
+                    <option value="0" disabled>Select Province first!</option>
+                @endforelse
+            </select>
             @error('type') <span class="form-text text-muted text-danger">{{ $message }}</span> @enderror
         </div>
+
 
         <div class="form-group mb-4">
             <label for="msisdn">Address</label>
@@ -36,17 +45,48 @@
             @error('address') <span class="form-text text-muted text-danger">{{ $message }}</span> @enderror
         </div>
 
-        <div class="form-group mb-4">
-            <label for="city">City</label>
-            <input type="text" class="form-control @error('city') is-invalid @enderror" id="msisdn" wire:model="city">
-            @error('city') <span class="form-text text-muted text-danger">{{ $message }}</span> @enderror
-        </div>
 
         <div class="form-group mb-4">
             <label for="province">Province</label>
-            <input type="text" class="form-control @error('province') is-invalid @enderror" id="msisdn" wire:model="province">
+            <select class="custom-select @error('province') is-invalid @endif" id="role" wire:model="province">
+                <option value="0">Choose..</option>
+                @forelse($provinces as $opt_province)
+                    <option value="{{ $opt_province }}">{{ $opt_province->name }}</option>
+                @empty
+                    <option value="0" disabled>No Province. Please add new one</option>
+                @endforelse
+            </select>
             @error('province') <span class="form-text text-muted text-danger">{{ $message }}</span> @enderror
+            {{ $province }}
         </div>
+
+        <div class="form-group mb-4">
+            <label for="province">City</label>
+            <select class="custom-select @error('city') is-invalid @endif" id="role" wire:model="city">
+                <option value="0">Choose..</option>
+                @forelse($cities as $opt_city)
+                    <option value="{{ $opt_city }}">{{ $opt_city->name }}</option>
+                @empty
+                    <option value="0" disabled>Select Province first!</option>
+                @endforelse
+            </select>
+            @error('city') <span class="form-text text-muted text-danger">{{ $message }}</span> @enderror
+        </div>
+
+
+        <div class="form-group mb-4">
+            <label for="province">Subdistrict</label>
+            <select class="custom-select @error('subdistrict') is-invalid @endif" id="role" wire:model="subdistrict">
+                <option value="0">Choose..</option>
+                @forelse($subdistricts as $opt_subdistrict)
+                    <option value="{{ $opt_subdistrict }}">{{ $opt_subdistrict->name }}</option>
+                @empty
+                    <option value="0" disabled>Select City first!</option>
+                @endforelse
+            </select>
+            @error('subdistrict') <span class="form-text text-muted text-danger">{{ $message }}</span> @enderror
+        </div>
+
 
         <hr>
 
@@ -57,7 +97,7 @@
                 @forelse($clusters as $cluster)
                     <option value="{{ $cluster->id }}">{{ $cluster->name }}</option>
                 @empty
-                    <option value="0" disabled>No Cluster. Please add new one</option>
+                    <option value="0" disabled>Choose Province first!</option>
                 @endforelse
             </select>
             @error('cluster_id') <span class="form-text text-muted text-danger">{{ $message }}</span> @enderror

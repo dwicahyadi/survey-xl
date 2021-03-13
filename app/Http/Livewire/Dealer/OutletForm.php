@@ -2,24 +2,29 @@
 
 namespace App\Http\Livewire\Dealer;
 
+use App\Models\City;
 use App\Models\Cluster;
 use App\Models\Dealer;
 use App\Models\Outlet;
+use App\Models\OutletType;
+use App\Models\Province;
+use App\Models\Subdistrict;
 use App\Models\User;
 use Livewire\Component;
 
 class OutletForm extends Component
 {
-    public  $clusters, $dealers;
-    public $cluster_id, $xl_outlet_id, $msisdn, $type, $name, $address, $province, $city, $micro_cluster, $dealerId;
+    public  $types, $clusters, $dealers, $provinces, $cities = [], $subdistricts = [];
+    public $cluster_id, $xl_outlet_id, $msisdn, $type, $name, $address, $province, $city, $subdistrict, $micro_cluster, $dealerId;
 
     protected $rules = [
         'name' => 'required|min:6',
         'msisdn'=> 'required|min:10|max:13|unique:outlets',
-//        'xl_outlet_id'=>'required|unique:outlets',
         'type'=>'required',
         'address'=>'required',
+        'province'=>'required',
         'city'=>'required',
+        'subdistrict'=>'required',
         'micro_cluster'=>'required',
         'dealerId'=>'required',
         'cluster_id'=>'required',
@@ -27,15 +32,30 @@ class OutletForm extends Component
 
     public function mount()
     {
+        $this->types = OutletType::all();
         $this->clusters = Cluster::all();
         if (!$this->dealerId)
             $this->dealers = Dealer::all();
+        $this->provinces = Province::orderBy('name')->get();
 
     }
     public function render()
     {
         return view('livewire.dealer.outlet-form');
     }
+
+    public function updatedProvince($value)
+    {
+        $selected = (object) json_decode($value);
+        $this->cities = City::where('province_id', $selected->id)->orderBy('name')->get();
+    }
+
+    public function updatedCity($value)
+    {
+        $selected = (object) json_decode($value);
+        $this->subdistricts = Subdistrict::where('regency_id', $selected->id)->orderBy('name')->get();
+    }
+
     public function save()
     {
         $this->validate();
@@ -47,8 +67,9 @@ class OutletForm extends Component
             'xl_outlet_id'=>$this->xl_outlet_id,
             'type'=>$this->type,
             'address'=>$this->address,
-            'province'=>$this->province,
-            'city'=>$this->city,
+            'province'=>json_decode($this->province)->name,
+            'city'=>json_decode($this->city)->name,
+            'subdistrict'=>json_decode($this->subdistrict)->name,
             'micro_cluster'=>$this->micro_cluster,
         ]);
 

@@ -12,7 +12,7 @@
                     <div class="card card-body shadow-soft my-2">
                         <div class="form-group">
                             <label>Surveyor</label><br>
-                            <strong>{{ $survey->user->name }}</strong>
+                            <strong>{{ $survey->user->name ?? 'Deleted User' }}</strong>
                         </div>
                         <div class="form-group">
                             <label>Survey Date</label><br>
@@ -47,17 +47,17 @@
                                 @else
                                     <div class="d-flex justify-content-between align-content-between">
                                         <span>{{ $response->response }}</span>
-                                        @if($response->status == 'greater')
+                                        @if($response->status == 'better')
                                             <span class="text-success p-2">
-                                                <i class="fas fa-chevron-circle-up"></i> Greater
+                                                <i class="fas fa-chevron-circle-up"></i> better
                                             </span>
-                                        @elseif($response->status == 'lower')
-                                            <<span class="text-fanger p-2">
-                                                <i class="fas fa-chevron-circle-down"></i> Lower
+                                        @elseif($response->status == 'worst')
+                                            <<span class="text-danger p-2">
+                                                <i class="fas fa-chevron-circle-down"></i> worst
                                             </span>
                                         @else
                                             <span class="text-info p-2">
-                                                <i class="fas fa-chevron-circle-right"></i> Equals
+                                                <i class="fas fa-chevron-circle-right"></i> state
                                             </span>
                                         @endif
 

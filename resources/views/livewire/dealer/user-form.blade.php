@@ -21,8 +21,11 @@
             <label for="role">Role</label>
             <select class="custom-select" id="role" wire:model="role">
                 <option value="">Choose</option>
-                <option value="surveyor">surveyor</option>
-                <option value="admin dealer">admin dealer</option>
+                @forelse($roles as $row)
+                    <option value="{{ $row->name }}">{{ $row->name }}</option>
+                @empty
+                    <option value="">No role available</option>
+                @endforelse
             </select>
         </div>
         <div class="form-group mb-4">

@@ -103,13 +103,13 @@ class DoSurvey extends Component
 
             if ($index > $prevIndex)
             {
-                $status = 'greater';
+                $status = 'better';
             }elseif ($index < $prevIndex)
             {
-                $status = 'lower';
+                $status = 'worst';
             }else
             {
-                $status = 'equals';
+                $status = 'state';
             }
             array_push($data, [
                 'survey_id'=>$survey->id,

@@ -24,8 +24,11 @@ class CreateOutletTable extends Migration
             $table->string('address')->nullable();
             $table->string('province')->nullable();
             $table->string('city')->nullable();
-            $table->string('micro_cluster');
+            $table->string('subdistrict')->nullable();
+            $table->string('micro_cluster')->nullable();
             $table->string('image_url')->nullable();
+            $table->string('latitude')->nullable();
+            $table->string('longitude')->nullable();
             $table->timestamps();
         });
     }

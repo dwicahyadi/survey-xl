@@ -9,7 +9,7 @@ class Outlet extends Model
 {
     use HasFactory;
     protected $fillable = ['cluster_id','dealer_id','xl_outlet_id','type','name','msisdn','address'
-        ,'micro_cluster', 'province','city'];
+        ,'micro_cluster', 'province','city','subdistrict'];
 
     protected $hidden = ["created_at", "updated_at"];
 
