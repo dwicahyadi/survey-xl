@@ -26,7 +26,6 @@ class DashboardController extends Controller
         if ($user->hasRole('admin dealer'))
             return view('dashboard.admin',['dealer'=>$dealer ?? null]);
 
-        if ($user->hasRole('surveyor'))
-            return view('survey.surveyor.index');
+        return view('survey.surveyor.index');
     }
 }
