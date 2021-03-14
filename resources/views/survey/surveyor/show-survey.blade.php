@@ -52,7 +52,7 @@
                                                 <i class="fas fa-chevron-circle-up"></i> better
                                             </span>
                                         @elseif($response->status == 'worst')
-                                            <<span class="text-danger p-2">
+                                            <span class="text-danger p-2">
                                                 <i class="fas fa-chevron-circle-down"></i> worst
                                             </span>
                                         @else

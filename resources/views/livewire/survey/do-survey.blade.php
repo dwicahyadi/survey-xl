@@ -35,6 +35,10 @@
             <textarea class="form-control" wire:model="note"></textarea>
         </div>
     </div>
+
+    <pre>
+        {{ var_dump($prevResponses) }}
+    </pre>
     <hr>
     @forelse($sections as $section)
         <h3>{{ $section->name }}</h3>
@@ -54,7 +58,7 @@
                                 <input type="radio"
                                        value="{{ json_encode($answer) }}"
                                        id="{{ 'answer-question-'.$question->id.'-'.$answer->id }}"
-                                       wire:model.defer="responses.{{$question->id}}.value"
+                                       wire:model="responses.{{$question->id}}.value"
                                 />
                                 <label class="list-group-item" for="{{ 'answer-question-'.$question->id.'-'.$answer->id }}">{{ $answer->text }}</label>
                             @empty
@@ -70,7 +74,7 @@
                                    class="form-control"
                                    id="{{ 'answer-question-'.$question->id.'-'.$answer->id }}"
                                    placeholder="type a number..."
-                                   wire:model.defer="responses.{{$question->id}}.value"
+                                   wire:model="responses.{{$question->id}}.value"
                             />
                         </div>
                     @endif
@@ -82,7 +86,7 @@
                                     class="form-control"
                                     id="{{ 'answer-question-'.$question->id.'-'.$answer->id }}"
                                     placeholder="type response..."
-                                    wire:model.defer="responses.{{$question->id}}.value"></textarea>
+                                    wire:model="responses.{{$question->id}}.value"></textarea>
                         </div>
                     @endif
 
@@ -93,7 +97,7 @@
                                    class="my-4"
                                    id="{{ 'answer-question-'.$question->id.'-'.$answer->id }}"
                                    placeholder="type response..."
-                                   wire:model.defer="responses.{{$question->id}}.file" />
+                                   wire:model="responses.{{$question->id}}.file" />
                         </div>
                     @endif
                 </div>

@@ -42,9 +42,10 @@ class DoSurvey extends Component
         })->get();
 
         $last_survey = $this->outlet->latest_survey[0] ?? [];
+
         if($last_survey)
         {
-            $data = $last_survey->setRelation('details', $last_survey->details->keyBy('id'));
+            $data = $last_survey;
             foreach ($data->details as $detail) {
                 $this->prevResponses[$detail->question_id] = (object) ['response'=>$detail->response, 'index'=>$detail->index];
             }
@@ -74,7 +75,8 @@ class DoSurvey extends Component
         {
             $text = 'no response';
             $index = 0;
-            $prevIndex = $text->prevResponses[$question_id] ?? 0;
+            $prevIndex = $this->prevResponses[$question_id]['index'] ?? 0;
+
             if (isset($response['value']))
             {
                 $responseObject = json_decode($response['value']);
@@ -120,6 +122,7 @@ class DoSurvey extends Component
                 'created_at'=>now()
             ]);
         }
+
         SurveyDetail::insert($data);
 
 
