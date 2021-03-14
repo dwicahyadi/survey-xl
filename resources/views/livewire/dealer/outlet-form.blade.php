@@ -26,7 +26,7 @@
 
 
         <div class="form-group mb-4">
-            <label for="province">City</label>
+            <label for="province">Outlet Type</label>
             <select class="custom-select @error('type') is-invalid @endif" id="role" wire:model="type">
                 <option value="0">Choose..</option>
                 @forelse($types as $opt_type)
@@ -57,7 +57,6 @@
                 @endforelse
             </select>
             @error('province') <span class="form-text text-muted text-danger">{{ $message }}</span> @enderror
-            {{ $province }}
         </div>
 
         <div class="form-group mb-4">

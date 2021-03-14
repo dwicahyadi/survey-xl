@@ -59,6 +59,7 @@ class OutletForm extends Component
     public function save()
     {
         $this->validate();
+
         Outlet::create([
             'name'=>$this->name,
             'msisdn'=>$this->msisdn,
