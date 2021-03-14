@@ -37,6 +37,6 @@
     <form action="{{ route('dealer.user.delete',['user'=>$user]) }}" method="post">
         @method('delete')
         @csrf
-        <a class="text-danger mr-2 mb-4" onclick="return confirm('Are you sure want to delete user {{ $user->name }}? This action can\'t be undone.')"><i class="fas fa-trash"></i> Delete Images Older than 1 month</a>
+        <a class="text-danger mr-2 mb-4" onclick="return confirm('Are you sure want to delete user {{ $user->name }}? This action can\'t be undone.')"><i class="fas fa-trash"></i> Delete this user</a>
     </form>
 </div>
