@@ -36,9 +36,6 @@
         </div>
     </div>
 
-    <pre>
-        {{ var_dump($prevResponses) }}
-    </pre>
     <hr>
     @forelse($sections as $section)
         <h3>{{ $section->name }}</h3>

@@ -80,8 +80,8 @@ class DoSurvey extends Component
             if (isset($response['value']))
             {
                 $responseObject = json_decode($response['value']);
-                $text = $responseObject->text;
-                $index = $responseObject->index;
+                $text = $responseObject->text ?? $response['value']);
+                $index = $responseObject->index ?? 0;
             }
             if(isset($response['file']))
             {
