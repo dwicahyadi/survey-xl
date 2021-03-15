@@ -63,7 +63,7 @@
                         <label>Input Outlet MSISDN</label>
                         <input type="text" class="form-control form-control-lg @error('key') is-invalid @enderror" wire:model.defer="key" placeholder="search Outlet MSISDN..">
                         @error('key') <span class="form-text text-muted text-danger">{{ $message }}</span> @enderror
-                        <span class="text-danger">Pleas use 628 prefix</span>
+                        <span class="text-danger">Please use 628 prefix</span>
                         <button  class="btn btn-block btn-primary mt-4" wire:click="search"><i class="fas fa-search-location"></i> Search</button>
                     </div>
                 </div>

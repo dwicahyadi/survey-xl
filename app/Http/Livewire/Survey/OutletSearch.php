@@ -28,7 +28,7 @@ class OutletSearch extends Component
             ->where('msisdn',$this->key)->first();
 
         if(!$outlet)
-            session()->flash('notfound','Not Found, Please your input or try with different numbers');
+            session()->flash('notfound','Not Found, Please check your input or try with different numbers');
 
         $this->outlet = $outlet;
     }
