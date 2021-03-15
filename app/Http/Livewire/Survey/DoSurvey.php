@@ -77,11 +77,21 @@ class DoSurvey extends Component
             $index = 0;
             $prevIndex = $this->prevResponses[$question_id]['index'] ?? 0;
 
-            if (isset($response['value']))
+            if (isset($response['radio']))
             {
-                $responseObject = json_decode($response['value']);
-                $text = $responseObject->text ?? $response['value'];
-                $index = $responseObject->index ?? 0;
+                $responseObject = json_decode($response['radio']);
+                $text = $responseObject->text;
+                $index = $responseObject->index;
+            }
+            if (isset($response['text']))
+            {
+                $text = $response['text'];
+                $index = 1;
+            }
+            if (isset($response['number']))
+            {
+                $text = $response['number'];
+                $index = $response['number'];
             }
             if(isset($response['file']))
             {

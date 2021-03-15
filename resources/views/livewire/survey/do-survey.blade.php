@@ -55,7 +55,7 @@
                                 <input type="radio"
                                        value="{{ json_encode($answer) }}"
                                        id="{{ 'answer-question-'.$question->id.'-'.$answer->id }}"
-                                       wire:model="responses.{{$question->id}}.value"
+                                       wire:model="responses.{{$question->id}}.radio"
                                 />
                                 <label class="list-group-item" for="{{ 'answer-question-'.$question->id.'-'.$answer->id }}">{{ $answer->text }}</label>
                             @empty
@@ -71,7 +71,7 @@
                                    class="form-control"
                                    id="{{ 'answer-question-'.$question->id.'-'.$answer->id }}"
                                    placeholder="type a number..."
-                                   wire:model="responses.{{$question->id}}.value"
+                                   wire:model="responses.{{$question->id}}.number"
                             />
                         </div>
                     @endif
@@ -83,7 +83,7 @@
                                     class="form-control"
                                     id="{{ 'answer-question-'.$question->id.'-'.$answer->id }}"
                                     placeholder="type response..."
-                                    wire:model="responses.{{$question->id}}.value"></textarea>
+                                    wire:model="responses.{{$question->id}}.text"></textarea>
                         </div>
                     @endif
 
