@@ -2,7 +2,6 @@
 
 namespace App\Http\Livewire\Import;
 
-use App\Imports\ImportOutlet;
 use App\Models\Cluster;
 use App\Models\Outlet as OutletModel;
 use Carbon\Carbon;
