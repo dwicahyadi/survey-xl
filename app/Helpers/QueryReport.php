@@ -158,4 +158,21 @@ class QueryReport
 
         return $query->where('answer_question_survey.question_id', $question_id)->get();
     }
+
+    public static function getSurveyResponse(int $survey_id)
+    {
+        $query =  DB::table('answer_question_survey')
+            ->where('answer_question_survey.survey_id', $survey_id)
+            ->join('surveys','answer_question_survey.survey_id','=','surveys.id')
+            ->join('questions','answer_question_survey.question_id','=','questions.id')
+            ->join('sections','questions.section_id','=','sections.id')
+            ->select(DB::raw('answer_question_survey.*,
+            questions.section_id,
+            sections.name as section,
+            questions.text as question,
+            questions.type as question_type'));
+
+        return $query->get();
+
+    }
 }

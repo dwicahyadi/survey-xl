@@ -7,8 +7,10 @@ use App\Exports\SurveyDetailsExport;
 use App\Helpers\QueryReport;
 use App\Models\Cluster;
 use App\Models\Dealer;
+use App\Models\Outlet;
 use App\Models\Question;
 use App\Models\Section;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
 use Maatwebsite\Excel\Facades\Excel;
@@ -29,6 +31,16 @@ class SurveySummaryController extends Controller
     public function list()
     {
         return view('report.list');
+    }
+
+    public function fromOutlet(Outlet $outlet)
+    {
+        return view('report.list_from_outlet',['outlet'=>$outlet]);
+    }
+
+    public function fromUser(User $user)
+    {
+        return view('report.list_from_user',['user'=>$user]);
     }
 
     public function exportDetail(Request $request)

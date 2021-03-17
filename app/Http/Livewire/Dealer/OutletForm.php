@@ -5,16 +5,18 @@ namespace App\Http\Livewire\Dealer;
 use App\Models\City;
 use App\Models\Cluster;
 use App\Models\Dealer;
+use App\Models\MicroCluster;
 use App\Models\Outlet;
 use App\Models\OutletType;
 use App\Models\Province;
 use App\Models\Subdistrict;
 use App\Models\User;
+use Auth;
 use Livewire\Component;
 
 class OutletForm extends Component
 {
-    public  $types, $clusters, $dealers, $provinces, $cities = [], $subdistricts = [];
+    public  $types, $clusters, $dealers, $provinces, $cities = [], $subdistricts = [], $micro_clusters = [];
     public $cluster_id, $xl_outlet_id, $msisdn, $type, $name, $address, $province, $city, $subdistrict, $micro_cluster, $dealerId;
 
     protected $rules = [
@@ -38,6 +40,16 @@ class OutletForm extends Component
             $this->dealers = Dealer::all();
         $this->provinces = Province::orderBy('name')->get();
 
+        if (Auth::user()->province)
+        {
+            $this->province = Auth::user()->province;
+            $this->updatedProvince(Auth::user()->province);
+            $this->city = Auth::user()->city;
+            $this->updatedCity(Auth::user()->city);
+        }
+
+
+
     }
     public function render()
     {
@@ -55,6 +67,12 @@ class OutletForm extends Component
         $selected = (object) json_decode($value);
         $this->subdistricts = Subdistrict::where('regency_id', $selected->id)->orderBy('name')->get();
     }
+
+    public function updatedClusterId($value)
+    {
+        $this->micro_clusters = MicroCluster::where('cluster_id', $value)->orderBy('name')->get();
+    }
+
 
     public function save()
     {

@@ -21,8 +21,7 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/', [App\Http\Controllers\DashboardController::class, 'index'])->name('dashboard');
-
-Route::get('/setting/role_permission',[\App\Http\Controllers\RolePermissionController::class,'index'])->name('role-permission.index');
+Route::view('/profile','profile')->name('profile');
 
 Route::prefix('manage/')->group(function (){
 
@@ -49,6 +48,9 @@ Route::prefix('report')->name('report.')->group(function (){
     Route::get('/list/',[\App\Http\Controllers\SurveySummaryController::class,'list'])->name('list');
     Route::get('/export/',[\App\Http\Controllers\SurveySummaryController::class,'exportDetail'])->name('export');
     Route::get('/pivot/',[\App\Http\Controllers\SurveySummaryController::class,'pivot'])->name('pivot');
+
+    Route::get('/list/from_outlet/{outlet}',[\App\Http\Controllers\SurveySummaryController::class,'fromOutlet'])->name('list.from-outlet');
+    Route::get('/list/from_surveyor/{user}',[\App\Http\Controllers\SurveySummaryController::class,'fromUser'])->name('list.from-user');
 });
 
 Route::prefix('setting')->name('setting.')->group(function (){
@@ -69,11 +71,11 @@ Route::prefix('setting')->name('setting.')->group(function (){
 
 /*Surveyor*/
 Route::prefix('surveyor/')->name('surveyor.')->group(function (){
-    Route::get('/', [\App\Http\Controllers\Surveyor::class,'index'])->name('index');
-    Route::get('/new-survey', [\App\Http\Controllers\Surveyor::class,'create'])->name('new-survey');
-    Route::get('/{outlet}/do-survey', [\App\Http\Controllers\Surveyor::class,'doSurvey'])->name('do-survey');
-    Route::get('/list', [\App\Http\Controllers\Surveyor::class,'surveyList'])->name('list');
-    Route::get('/show/{id}', [\App\Http\Controllers\Surveyor::class,'showSurvey'])->name('show');
+    Route::get('/', [\App\Http\Controllers\SurveyController::class,'index'])->name('index');
+    Route::get('/new-survey', [\App\Http\Controllers\SurveyController::class,'create'])->name('new-survey');
+    Route::get('/{outlet}/do-survey', [\App\Http\Controllers\SurveyController::class,'doSurvey'])->name('do-survey');
+    Route::get('/list', [\App\Http\Controllers\SurveyController::class,'surveyList'])->name('list');
+    Route::get('/show/{id}', [\App\Http\Controllers\SurveyController::class,'showSurvey'])->name('show');
 
 
 });

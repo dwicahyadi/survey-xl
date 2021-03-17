@@ -2,13 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Helpers\QueryReport;
 use App\Models\Outlet;
 use App\Models\Survey;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
 
-class Surveyor extends Controller
+class SurveyController extends Controller
 {
     public function __construct()
     {
@@ -37,19 +38,28 @@ class Surveyor extends Controller
 
     public function surveyList()
     {
-        $surveys = Survey::with('user','outlet','cluster','dealer')
-            ->orderBy('id','desc')
-            ->limit(50)
-            ->where('user_id',Auth::id())->get();
-        return view('survey.surveyor.list', ['surveys'=>$surveys]);
+        return view('survey.surveyor.list');
     }
 
     public function showSurvey(int $id)
     {
-        $survey = Survey::with('details','user','outlet','cluster','dealer')
+        $survey = Survey::with('user','outlet','cluster','dealer')
             ->where('id',$id)->firstOrFail();
 
-        return view('survey.surveyor.show-survey', ['survey'=>$survey]);
+        $next = Survey::with('user')
+            ->where('outlet_id',$survey->outlet_id)
+            ->where('id','>',$id)
+            ->first();
+
+        $prev = Survey::with('user')
+            ->where('outlet_id',$survey->outlet_id)
+            ->where('id','<',$id)
+            ->orderBy('id','desc')
+            ->first();
+
+        $survey_details = QueryReport::getSurveyResponse($id)->groupBy('section');
+
+        return view('survey.surveyor.show-survey', compact('survey','survey_details','prev', 'next'));
     }
 
 }

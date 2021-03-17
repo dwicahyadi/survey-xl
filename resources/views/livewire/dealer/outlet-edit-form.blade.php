@@ -19,12 +19,6 @@
         </div>
 
         <div class="form-group mb-4">
-            <label for="xl_outlet_id">XL Outlet ID</label>
-            <input type="text" class="form-control @error('xl_outlet_id') is-invalid @enderror" id="msisdn" wire:model="xl_outlet_id">
-            @error('xl_outlet_id') <span class="form-text text-muted text-danger">{{ $message }}</span> @enderror
-        </div>
-
-        <div class="form-group mb-4">
             <label for="type">Type</label>
             <input type="text" class="form-control @error('type') is-invalid @enderror" id="type" wire:model="type">
             @error('type') <span class="form-text text-muted text-danger">{{ $message }}</span> @enderror

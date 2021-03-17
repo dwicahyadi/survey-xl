@@ -32,15 +32,15 @@ class DoSurvey extends Component
 
     public function mount()
     {
+        $this->sections = Section::with(['questions.answers'])->whereHas('questions',function ($q){
+            $q->where('is_active',1);
+        })->get();
+
 
 
     }
     public function render()
     {
-        $this->sections = Section::with(['questions.answers'])->whereHas('questions',function ($q){
-            $q->where('is_active',1);
-        })->get();
-
         $last_survey = $this->outlet->latest_survey[0] ?? [];
 
         if($last_survey)
@@ -118,7 +118,7 @@ class DoSurvey extends Component
                 $status = 'better';
             }elseif ($index < $prevIndex)
             {
-                $status = 'worst';
+                $status = 'worse';
             }else
             {
                 $status = 'state';

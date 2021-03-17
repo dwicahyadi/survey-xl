@@ -10,7 +10,7 @@ use Livewire\Component;
 use Livewire\WithFileUploads;
 
 
-class Outlet extends Component
+class ImportOutlet extends Component
 {
     use WithFileUploads;
     const STORE_FOLDER = 'public/importOutlet/';

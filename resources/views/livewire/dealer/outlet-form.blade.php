@@ -18,12 +18,6 @@
             @error('msisdn') <span class="form-text text-muted text-danger">{{ $message }}</span> @enderror
         </div>
 
-        <div class="form-group mb-4">
-            <label for="xl_outlet_id">XL Outlet ID</label>
-            <input type="text" class="form-control @error('xl_outlet_id') is-invalid @enderror" id="xl_outlet_id" wire:model="xl_outlet_id">
-            @error('xl_outlet_id') <span class="form-text text-muted text-danger">{{ $message }}</span> @enderror
-        </div>
-
 
         <div class="form-group mb-4">
             <label for="province">Outlet Type</label>
@@ -88,29 +82,9 @@
 
 
         <hr>
-
-        <div class="form-group mb-4">
-            <label for="cluster_id">Cluster</label>
-            <select class="custom-select @error('cluster_id') is-invalid @endif" id="role" wire:model="cluster_id">
-                <option value="0">Choose..</option>
-                @forelse($clusters as $cluster)
-                    <option value="{{ $cluster->id }}">{{ $cluster->name }}</option>
-                @empty
-                    <option value="0" disabled>Choose Province first!</option>
-                @endforelse
-            </select>
-            @error('cluster_id') <span class="form-text text-muted text-danger">{{ $message }}</span> @enderror
-        </div>
-
-        <div class="form-group mb-4">
-            <label for="micro_cluster">Micro Cluster</label>
-            <input type="text" class="form-control @error('micro_cluster') is-invalid @enderror" id="msisdn" wire:model="micro_cluster">
-            @error('micro_cluster') <span class="form-text text-muted text-danger">{{ $message }}</span> @enderror
-        </div>
-
         @if($dealers)
             <div class="form-group mb-4">
-                <label for="micro_cluster">Dealer</label>
+                <label for="dealer">Dealer</label>
                 <select class="custom-select @error('dealer_id') is-invalid @endif" id="role" wire:model="dealerId">
                     <option value="0">Choose..</option>
                     @forelse($dealers as $dealer)
@@ -122,6 +96,36 @@
                 @error('dealerId') <span class="form-text text-muted text-danger">{{ $message }}</span> @enderror
             </div>
         @endif
+
+        <hr>
+
+        <div class="form-group mb-4">
+            <label for="cluster_id">Cluster</label>
+            <select class="custom-select @error('cluster_id') is-invalid @endif" id="role" wire:model="cluster_id">
+                <option value="0">Choose..</option>
+                @forelse($clusters as $opt_cluster)
+                    <option value="{{ $opt_cluster->id }}">{{ $opt_cluster->name }}</option>
+                @empty
+                    <option value="0" disabled>Choose Province first!</option>
+                @endforelse
+            </select>
+            {{ $cluster_id }}
+            @error('cluster_id') <span class="form-text text-muted text-danger">{{ $message }}</span> @enderror
+        </div>
+
+
+        <div class="form-group mb-4">
+            <label for="province">Micro Cluster</label>
+            <select class="custom-select @error('micro_cluster') is-invalid @endif" id="role" wire:model="micro_cluster">
+                <option value="0">Choose..</option>
+                @forelse($micro_clusters as $opt_micro_cluster)
+                    <option value="{{ $opt_micro_cluster->name }}">{{ $opt_micro_cluster->name }}</option>
+                @empty
+                    <option value="0" disabled>Select Cluster first!</option>
+                @endforelse
+            </select>
+            @error('micro_cluster') <span class="form-text text-muted text-danger">{{ $message }}</span> @enderror
+        </div>
 
 
         <div class="form-group mb-4">

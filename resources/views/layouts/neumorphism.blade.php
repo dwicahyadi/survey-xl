@@ -31,7 +31,7 @@
     <nav id="navbar-main" aria-label="Primary navigation" class="navbar navbar-main navbar-expand-lg navbar-theme-primary headroom navbar-light navbar-transparent navbar-theme-primary">
         <div class="container position-relative">
             <a class="navbar-brand mr-lg-4 p-0" href="/">
-{{--                <img class="" src="{{ asset('/assets/img/brand/axiata.png') }}" alt="Logo">--}}
+                AVACENTRAL.COM
             </a>
             <div class="navbar-collapse collapse" id="navbar_global">
                 <div class="navbar-collapse-header">
@@ -75,19 +75,19 @@
 
                             </a>
 
-                            <div class="dropdown-menu mt-4" aria-labelledby="navbarDropdown">
+                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                                 <div class="profile-card">
                                     <div class="card bg-primary border-light">
 
                                         <div class="card-body">
                                             <h3 class="h5 mb-2">{{ Auth::user()->name }}</h3>
                                             <span class="h6 font-weight-normal text-gray mb-3">{{ Auth::user()->roles[0]->name }}</span>
-                                            <a class="btn btn-primary btn-block mt-2" href="#"
+                                            <a class="btn btn-primary btn-block mt-2" href="{{ route('profile') }}" >
                                             <i class="fa fa-user mr-2"></i> Profile
                                             </a>
                                             <a class="btn btn-primary btn-block mt-2" href="{{ route('logout') }}"
                                                onclick="event.preventDefault();
-                                                     document.getElementById('logout-form').submit();">
+                                                     document.getElementById('logout-form').submit();" >
                                                 <i class="fas fa-key mr-2"></i> Logout
                                             </a>
 
@@ -118,6 +118,30 @@
                 <div class="alert alert-danger alert-dismissible shadow-soft fade show" role="alert">
                     <span class="alert-inner--icon"><i class="fas fa-stop-circle"></i></span>
                     <span class="alert-inner--text">{{$errors->first()}}</span>
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>
+                </div>
+            </div>
+        </section>
+    @endif
+
+    @if(!Auth::user()->province && !Auth::user()->city)
+        <section class="section pb-0">
+            <div class="container">
+                <div class="alert alert-info alert-dismissible shadow-soft fade show" role="alert">
+                    <span class="alert-inner--icon"><i class="fas fa-warning"></i></span>
+                    <span class="alert-inner--text">Please update your region information at profil menu</span>
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>
+                </div>
+            </div>
+        </section>
+    @endif
+
+    @if(Hash::check('password', Auth::user()->getAuthPassword()))
+        <section class="section pb-0">
+            <div class="container">
+                <div class="alert alert-info alert-dismissible shadow-soft fade show" role="alert">
+                    <span class="alert-inner--icon"><i class="fas fa-warning"></i></span>
+                    <span class="alert-inner--text">Hi, please update your password</span>
                     <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>
                 </div>
             </div>

@@ -18,4 +18,9 @@ class Cluster extends Model
     {
         return $this->hasMany(Outlet::class);
     }
+
+    public function micro_clusters(): \Illuminate\Database\Eloquent\Relations\HasMany
+    {
+        return $this->hasMany(MicroCluster::class);
+    }
 }

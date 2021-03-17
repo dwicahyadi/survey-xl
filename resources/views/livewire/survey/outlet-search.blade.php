@@ -1,46 +1,62 @@
 <div>
 
     @if($outlet)
-        <div class="card bg-primary bg-soft shadow-soft text-center">
+        <div class="card bg-primary bg-soft shadow-soft">
             <div class="card-body">
 
-                <h4 class="display-4 pt-4">
-                    {{ $outlet->name }}
-                </h4>
+                <div class="d-flex border-light border-bottom mb-2">
+                    <div class="mr-2">
+                        <img src="https://ui-avatars.com/api/?background=random&name={{ $outlet->name }}" class="rounded-circle" alt="{{ $outlet->name }}" width="48">
+                    </div>
+                    <div class="pl-4 flex-fill">
+                        <h5 class="text-facebook">{{ $outlet->msisdn }}</h5>
+                        <h5>{{ $outlet->name }}</h5>
+                        <small class="mr-2">
+                            {{ $outlet->type }}
+                            / {{ $outlet->cluster->name }}
+                            / {{ $outlet->micro_cluster }}
+                        </small>
+                    </div>
+                </div>
+                <div class="row border-light border-bottom mb-2">
+                    <div class="col-6">
+                        <small >Adress</small>
 
-                <span class="mt-2">MSISDN</span>
-                <h5>{{ $outlet->msisdn }}</h5>
+                        <h6>{{ $outlet->address ?? 'no address' }}</h6>
+                        @if()
+                            <a href="geo:{{ $outlet->latitude }},{{ $outlet->longitude }}" target="_blank">Click here for map</a>
+                    </div>
 
-                <span class="mt-2">Type</span>
-                <h5>{{ $outlet->type }}</h5>
+                    <div class="col-6">
+                        <small class="mt-2">Province</small>
+                        <h6>{{ $outlet->province ?? 'no address' }}</h6>
+                    </div>
 
-                <span class="mt-2">Adress</span>
-                <h5>{{ $outlet->address ?? 'no address' }}</h5>
+                    <div class="col-6">
+                        <small class="mt-2">City</small>
+                        <h6>{{ $outlet->city ?? 'no address' }}</h6>
+                    </div>
 
-                <span class="mt-2">City</span>
-                <h5>{{ $outlet->city ?? 'no address' }}</h5>
+                    <div class="col-6">
+                        <small class="mt-2">Subdistrict</small>
+                        <h6>{{ $outlet->subdistrict ?? 'no address' }}</h6>
+                    </div>
+                </div>
 
-                <span class="mt-2">Province</span>
-                <h5>{{ $outlet->province ?? 'no address' }}</h5>
+                <div class="border-light border-bottom mb-2">
+                    <small class="mt-2">Dealer</small>
+                    <h5>{{ $outlet->dealer->name ?? 'no dealer' }}</h5>
+                </div>
 
-                <span class="mt-2">Cluster</span>
-                <h5>{{ $outlet->cluster->name ?? 'no cluster' }}</h5>
-
-                <span class="mt-2">Micro Cluster</span>
-                <h5>{{ $outlet->micro_cluster ?? 'no cluster' }}</h5>
-
-                <span class="mt-2">Dealer</span>
-                <h5>{{ $outlet->dealer->name ?? 'no dealer' }}</h5>
-
-                <hr>
-                <span class="mt-2">Last Survey</span>
+                <small class="mt-2">Last Survey</small>
                 @isset($outlet->latest_survey[0])
-                    <h5>
+                    <h6>
                         <span class="text-danger">{{ \Carbon\Carbon::createFromTimestamp(strtotime($outlet->latest_survey[0]->created_at))->diffForHumans() }}</span>
                         by {{ $outlet->latest_survey[0]->user->name ?? 'Deleted User' }}
-                    </h5>
+                    </h6>
+                    <a href="{{ route('report.list.from-outlet',['outlet'=> $outlet]) }}">See older survey from this outlet</a>
                 @else
-                    <span class="text-danger">Never</span>
+                    <h6 class="text-danger">Never</h6>
                 @endisset
                 <hr>
                 <div class="btn-group btn-block">
@@ -61,9 +77,8 @@
                 <div class="card-body">
                     <div class="d-flex flex-column">
                         <label>Input Outlet MSISDN</label>
-                        <input type="text" class="form-control form-control-lg @error('key') is-invalid @enderror" wire:model.defer="key" placeholder="search Outlet MSISDN..">
+                        <input type="text" class="form-control form-control-lg @error('key') is-invalid @enderror" wire:model.defer="key" wire:keydown.enter="search" placeholder="search Outlet MSISDN..">
                         @error('key') <span class="form-text text-muted text-danger">{{ $message }}</span> @enderror
-                        <span class="text-danger">Please use 628 prefix</span>
                         <button  class="btn btn-block btn-primary mt-4" wire:click="search"><i class="fas fa-search-location"></i> Search</button>
                     </div>
                 </div>

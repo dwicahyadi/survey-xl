@@ -14,8 +14,9 @@ class SurveyList extends Component
     protected $paginationTheme = 'bootstrap';
 
     public $search;
+    public $surveyor = 0;
 
-    public $dealerId;
+    public $dealerId, $outletId, $userId;
 
     protected $queryString = [
         'search' => ['except' => ''],
@@ -30,13 +31,23 @@ class SurveyList extends Component
 
     public function render()
     {
+        $surveys = Survey::with(['user','outlet','cluster','dealer'])
+            ->whereHas('outlet', function ($q){
+                $q->where('msisdn','like', '%'.$this->search.'%')
+                    ->orWhere('name','like', '%'.$this->search.'%');
+            })
+            ->orderBy('id','desc');
+        if($this->surveyor)
+            $surveys->where('user_id', \Auth::id());
+
+        if($this->outletId)
+            $surveys->where('outlet_id', $this->outletId);
+
+        if($this->userId)
+            $surveys->where('user_id', $this->userId);
 
         return view('livewire.survey.survey-list',[
-            'surveys' => Survey::with(['user','outlet','cluster','dealer'])
-                ->whereHas('outlet', function ($q){
-                    $q->where('msisdn','like', '%'.$this->search.'%');
-                })
-                ->orderBy('id','desc')->paginate(10),
+            'surveys' => $surveys->paginate(10),
         ]);
     }
 }

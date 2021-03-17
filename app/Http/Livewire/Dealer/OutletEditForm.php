@@ -16,7 +16,7 @@ class OutletEditForm extends Component
     protected $rules = [
         'name' => 'required|min:6',
         'msisdn'=> 'required|digits_between:10,13|numeric',
-        'xl_outlet_id'=>'required',
+//        'xl_outlet_id'=>'required',
         'type'=>'required',
         'address'=>'required',
         'city'=>'required',
@@ -27,7 +27,7 @@ class OutletEditForm extends Component
     {
         $this->clusters = Cluster::all();
         $this->cluster_id = $this->outlet->cluster_id;
-        $this->xl_outlet_id = $this->outlet->xl_outlet_id;
+//        $this->xl_outlet_id = $this->outlet->xl_outlet_id;
         $this->msisdn = $this->outlet->msisdn;
         $this->type = $this->outlet->type;
         $this->name = $this->outlet->name;
