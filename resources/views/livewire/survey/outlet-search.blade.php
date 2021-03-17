@@ -23,8 +23,9 @@
                         <small >Adress</small>
 
                         <h6>{{ $outlet->address ?? 'no address' }}</h6>
-                        @if()
+                        @if($outlet->latitude  && $outlet->longitude)
                             <a href="geo:{{ $outlet->latitude }},{{ $outlet->longitude }}" target="_blank">Click here for map</a>
+                        @endif
                     </div>
 
                     <div class="col-6">
