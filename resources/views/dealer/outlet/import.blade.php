@@ -15,7 +15,7 @@
             <div class="row justify-content-center  pt-6">
                 <div class="col-lg-8 col-xl-8">
                     <label>Upload File</label>
-                    @livewire('import.outlet',['dealer_id'=>$dealer->id])
+                    @livewire('dealer.import-outlet',['dealer_id'=>$dealer->id])
                 </div>
             </div>
         </div>
