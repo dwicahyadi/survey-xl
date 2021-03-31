@@ -40,65 +40,67 @@
     @forelse($sections as $section)
         <h3>{{ $section->name }}</h3>
         @forelse($section->questions as $question)
-            <div class="card my-4 shadow-soft @error('responses.'.$question->id.'.*') border-danger text-danger @enderror" wire:key="question-{{ $question->id }}">
-                <div class="card-header border-light border-bottom">
-                    <h4>{{ $question->text }}</h4>
-                    <small><i class="fas fa-info-circle text-info"></i> Last response : {{ trim($prevResponses[$question->id]->response ?? '-')  }}</small>
-                    @error('responses.'.$question->id.'.*') <span class="form-text text-muted text-danger">{{ $message }}</span> @enderror
-                </div>
-                <div class="card-body p-0">
-                    @if($question->type == 'radio_button')
+            @if($question->is_active)
+                <div class="card my-4 shadow-soft @error('responses.'.$question->id.'.*') border-danger text-danger @enderror" wire:key="question-{{ $question->id }}">
+                    <div class="card-header border-light border-bottom">
+                        <h4>{{ $question->text }}</h4>
+                        <small><i class="fas fa-info-circle text-info"></i> Last response : {{ trim($prevResponses[$question->id]->response ?? '-')  }}</small>
+                        @error('responses.'.$question->id.'.*') <span class="form-text text-muted text-danger">{{ $message }}</span> @enderror
+                    </div>
+                    <div class="card-body p-0">
+                        @if($question->type == 'radio_button')
 
 
-                        <div class="list-group">
-                            @forelse($question->answers as $answer)
-                                <input type="radio"
-                                       value="{{ json_encode($answer) }}"
+                            <div class="list-group">
+                                @forelse($question->answers as $answer)
+                                    <input type="radio"
+                                           value="{{ json_encode($answer) }}"
+                                           id="{{ 'answer-question-'.$question->id.'-'.$answer->id }}"
+                                           wire:model="responses.{{$question->id}}.radio"
+                                    />
+                                    <label class="list-group-item" for="{{ 'answer-question-'.$question->id.'-'.$answer->id }}">{{ $answer->text }}</label>
+                                @empty
+                                    <li>----No Response Option Availabe----</li>
+                                @endforelse
+                            </div>
+                        @endif
+
+                        @if($question->type == 'input_number')
+
+                            <div class="p-2">
+                                <input type="number"
+                                       class="form-control"
                                        id="{{ 'answer-question-'.$question->id.'-'.$answer->id }}"
-                                       wire:model="responses.{{$question->id}}.radio"
+                                       placeholder="type a number..."
+                                       wire:model="responses.{{$question->id}}.number"
                                 />
-                                <label class="list-group-item" for="{{ 'answer-question-'.$question->id.'-'.$answer->id }}">{{ $answer->text }}</label>
-                            @empty
-                                <li>----No Response Option Availabe----</li>
-                            @endforelse
-                        </div>
-                    @endif
+                            </div>
+                        @endif
 
-                    @if($question->type == 'input_number')
+                        @if($question->type == 'input_text')
 
-                        <div class="p-2">
-                            <input type="number"
-                                   class="form-control"
-                                   id="{{ 'answer-question-'.$question->id.'-'.$answer->id }}"
-                                   placeholder="type a number..."
-                                   wire:model="responses.{{$question->id}}.number"
-                            />
-                        </div>
-                    @endif
-
-                    @if($question->type == 'input_text')
-
-                        <div class="p-2">
+                            <div class="p-2">
                                 <textarea
                                     class="form-control"
                                     id="{{ 'answer-question-'.$question->id.'-'.$answer->id }}"
                                     placeholder="type response..."
                                     wire:model="responses.{{$question->id}}.text"></textarea>
-                        </div>
-                    @endif
+                            </div>
+                        @endif
 
-                    @if($question->type == 'file')
+                        @if($question->type == 'file')
 
-                        <div class="p-2">
-                            <input type="file"
-                                   class="my-4"
-                                   id="{{ 'answer-question-'.$question->id.'-'.$answer->id }}"
-                                   placeholder="type response..."
-                                   wire:model="responses.{{$question->id}}.file" />
-                        </div>
-                    @endif
+                            <div class="p-2">
+                                <input type="file"
+                                       class="my-4"
+                                       id="{{ 'answer-question-'.$question->id.'-'.$answer->id }}"
+                                       placeholder="type response..."
+                                       wire:model="responses.{{$question->id}}.file" />
+                            </div>
+                        @endif
+                    </div>
                 </div>
-            </div>
+            @endif
         @empty
             <div>
                 <h4 class="display-4">No question have been created in this section. Please add new one.</h4>

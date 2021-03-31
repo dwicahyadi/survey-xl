@@ -7,6 +7,7 @@
                 <div class="col-lg-8 col-xl-8">
                     <h1 class="display-2 mb-3">Manage Outlets</h1>
                     <p class="display-5">Manage outlet for <strong>{{ $dealer->name }}</strong></p>
+                    <p>Total {{ number_format($dealer->outlets()->count()) }} outlet(s)</p>
                     <p>You can also use import to store multiple outlets at once.
                         <a href="{{ route('dealer.outlet.import',['dealer'=>$dealer]) }}" class="btn btn-primary btn-sm">
                             <i class="fas fa-upload mr-2"></i> Import Outlets

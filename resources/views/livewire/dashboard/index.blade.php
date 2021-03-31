@@ -6,34 +6,53 @@
     </div>
 
     <div class="row pt-4">
-        <div class="col-lg-3">
-            <div class="card shadow-soft border-light">
-                <div class="card-body d-flex">
-                    <div class="p-4">
-                        <h2 class="display-2 mb-2">{{ number_format($dealersCount) }}</h2>
-                        <h3 class="h4 text-black">Dealers</h3>
-                    </div>
-                </div>
-            </div>
-        </div>
 
         <div class="col-lg-3">
             <div class="card shadow-soft border-light">
                 <div class="card-body d-flex">
                     <div class="p-4">
-                        <h2 class="display-2 mb-2">{{ number_format($clustersCount) }}</h2>
-                        <h3 class="h4 text-black">Clusters</h3>
+                        @if($clustersCount)
+                            <h2 class="display-2 mb-2">{{ number_format($clustersCount) }}</h2>
+                            <h3 class="h4 text-black">Clusters</h3>
+                        @else
+                            <p>No Cluster are available. Please create new one</p>
+                            <a href="{{ route('cluster.index') }}" class="mt-4 text-danger">Create New Cluster</a>
+                        @endif
+
                     </div>
                 </div>
             </div>
         </div>
 
+
         <div class="col-lg-3">
             <div class="card shadow-soft border-light">
                 <div class="card-body d-flex">
                     <div class="p-4">
-                        <h2 class="display-2 mb-2">{{ number_format($outletsCount) }}</h2>
-                        <h3 class="h4 text-black">Outlets</h3>
+                        @if($dealersCount)
+                            <h2 class="display-2 mb-2">{{ number_format($dealersCount) }}</h2>
+                            <h3 class="h4 text-black">Dealers</h3>
+                        @else
+                            <p>No Dealer are available. Please create new one</p>
+                            <a href="{{ route('dealer.index') }}" class="mt-4 text-danger">Create New Dealer</a>
+                        @endif
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+        <div class="col-lg-3">
+            <div class="card shadow-soft border-light">
+                <div class="card-body d-flex">
+                    <div class="p-4">
+                        @if($outletsCount)
+                            <h2 class="display-2 mb-2">{{ number_format($outletsCount) }}</h2>
+                            <h3 class="h4 text-black">Outlets</h3>
+                        @else
+                            <p>Please create a minimum of 1 cluster and 1 dealer before create an Outlet</p>
+                        @endif
                     </div>
                 </div>
             </div>

@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Answer extends Model
 {
     use HasFactory;
-    protected $fillable = ['section_id','text', 'index'];
+    protected $fillable = ['question_id','text', 'index'];
 
     protected $hidden = ['created_at', 'updated_at'];
 

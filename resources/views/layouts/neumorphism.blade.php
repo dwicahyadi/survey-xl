@@ -4,7 +4,7 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <!-- Primary Meta Tags -->
-    <title>SURVEY AVA CENTRAL</title>
+    <title>{{ config('app.name') }}</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="title" content="Survey ava central">
     <meta name="author" content="cahyadi2@gmail.com">
@@ -31,7 +31,7 @@
     <nav id="navbar-main" aria-label="Primary navigation" class="navbar navbar-main navbar-expand-lg navbar-theme-primary headroom navbar-light navbar-transparent navbar-theme-primary">
         <div class="container position-relative">
             <a class="navbar-brand mr-lg-4 p-0" href="/">
-                AVACENTRAL.COM
+                {{ config('app.name') }}
             </a>
             <div class="navbar-collapse collapse" id="navbar_global">
                 <div class="navbar-collapse-header">
@@ -83,7 +83,7 @@
                                             <h3 class="h5 mb-2">{{ Auth::user()->name }}</h3>
                                             <span class="h6 font-weight-normal text-gray mb-3">{{ Auth::user()->roles[0]->name }}</span>
                                             <a class="btn btn-primary btn-block mt-2" href="{{ route('profile') }}" >
-                                            <i class="fa fa-user mr-2"></i> Profile
+                                                <i class="fa fa-user mr-2"></i> Profile
                                             </a>
                                             <a class="btn btn-primary btn-block mt-2" href="{{ route('logout') }}"
                                                onclick="event.preventDefault();
@@ -124,29 +124,17 @@
         </section>
     @endif
 
-    @if(!Auth::user()->province && !Auth::user()->city)
-        <section class="section pb-0">
-            <div class="container">
-                <div class="alert alert-info alert-dismissible shadow-soft fade show" role="alert">
-                    <span class="alert-inner--icon"><i class="fas fa-warning"></i></span>
-                    <span class="alert-inner--text">Please update your region information at profil menu</span>
-                    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>
-                </div>
-            </div>
-        </section>
+    @if(!Auth::user()->province && !Auth::user()->city && Auth::user()->hasRole('surveyor'))
+        <div class="container mt-8 p-4 bg-warning rounded ">
+            <span><i class="fas fa-key mx-4"></i>Please update your region in Profile </span>
+        </div>
     @endif
 
-    @if(Hash::check('password', Auth::user()->getAuthPassword()))
-        <section class="section pb-0">
-            <div class="container">
-                <div class="alert alert-info alert-dismissible shadow-soft fade show" role="alert">
-                    <span class="alert-inner--icon"><i class="fas fa-warning"></i></span>
-                    <span class="alert-inner--text">Hi, please update your password</span>
-                    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>
-                </div>
-            </div>
-        </section>
-    @endif
+{{--    @if(Hash::check('password', Auth::user()->getAuthPassword()))--}}
+{{--        <div class="container mt-8 p-4 bg-warning rounded ">--}}
+{{--            <span><i class="fas fa-key mx-4"></i>Please update your password</span>--}}
+{{--        </div>--}}
+{{--    @endif--}}
 
 
     @yield('content')

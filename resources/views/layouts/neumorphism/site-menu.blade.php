@@ -12,33 +12,29 @@
         <div class="dropdown-menu dropdown-menu-lg">
             <div class="col-auto px-0" data-dropdown-content>
                 <div class="list-group list-group-flush">
-                    @can('manage all dealers')
-                        <a href="{{ route('dealer.index') }}" class="list-group-item list-group-item-action d-flex align-items-center p-0 py-3 px-lg-4">
-                            <span class="icon icon-sm icon-secondary"><span class="fas fa-file-alt"></span></span>
-                            <div class="ml-4">
-                                <span class="text-dark d-block">Dealer</span>
-                                <span class="small">Manage dealers include their outlets and users</span>
-                            </div>
-                        </a>
+                    <a href="{{ route('dealer.index') }}" class="list-group-item list-group-item-action d-flex align-items-center p-0 py-3 px-lg-4">
+                        <span class="icon icon-sm icon-secondary"><span class="fas fa-file-alt"></span></span>
+                        <div class="ml-4">
+                            <span class="text-dark d-block">Dealer</span>
+                            <span class="small">Manage dealers include their outlets and users</span>
+                        </div>
+                    </a>
 
-                        <a href="{{ route('cluster.index') }}" class="list-group-item list-group-item-action d-flex align-items-center p-0 py-3 px-lg-4">
-                            <span class="icon icon-sm icon-secondary"><span class="fas fa-map"></span></span>
-                            <div class="ml-4">
-                                <span class="text-dark d-block">Cluster</span>
-                                <span class="small">Manage clusters</span>
-                            </div>
-                        </a>
-                    @endcan
+                    <a href="{{ route('cluster.index') }}" class="list-group-item list-group-item-action d-flex align-items-center p-0 py-3 px-lg-4">
+                        <span class="icon icon-sm icon-secondary"><span class="fas fa-map"></span></span>
+                        <div class="ml-4">
+                            <span class="text-dark d-block">Cluster</span>
+                            <span class="small">Manage clusters</span>
+                        </div>
+                    </a>
 
-                    @can('manage questions')
-                            <a href="{{ route('survey-question.index') }}" target="" class="list-group-item list-group-item-action d-flex align-items-center p-0 py-3 px-lg-4">
-                                <span class="icon icon-sm icon-secondary"><span class="fas fa-comment-alt"></span></span>
-                                <div class="ml-4">
-                                    <span class="text-dark d-block">Question</span>
-                                    <span class="small">Manage questions for surveys</span>
-                                </div>
-                            </a>
-                        @endcan
+                    <a href="{{ route('survey-question.index') }}" target="" class="list-group-item list-group-item-action d-flex align-items-center p-0 py-3 px-lg-4">
+                        <span class="icon icon-sm icon-secondary"><span class="fas fa-comment-alt"></span></span>
+                        <div class="ml-4">
+                            <span class="text-dark d-block">Question</span>
+                            <span class="small">Manage questions for surveys</span>
+                        </div>
+                    </a>
 
                 </div>
             </div>

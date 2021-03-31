@@ -13,7 +13,7 @@ class Grid extends Component
 
     public function render()
     {
-        $this->dealers = Dealer::orderBy('id','desc')->get();
+        $this->dealers = Dealer::withCount(['users', 'outlets'])->orderBy('id','desc')->get();
         return view('livewire.dealer.grid');
     }
 }

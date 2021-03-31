@@ -9,12 +9,12 @@
     </div>
     <form action="" class="form">
         <div class="form-group mb-4">
-            <label for="name">Nama Dealer</label>
+            <label for="name">Dealer Name</label>
             <input type="text" class="form-control" id="name" wire:model="name" autocomplete="off">
             @error('name') <span class="form-text text-muted text-danger">{{ $message }}</span> @enderror
         </div>
         <div class="form-group mb-4">
-            <label for="address">Alamat</label>
+            <label for="address">Address</label>
             <input type="text" class="form-control" id="address" wire:model="address" autocomplete="off">
             @error('address') <span class="form-text text-muted text-danger">{{ $message }}</span> @enderror
 

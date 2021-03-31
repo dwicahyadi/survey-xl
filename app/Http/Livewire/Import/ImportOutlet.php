@@ -43,14 +43,14 @@ class ImportOutlet extends Component
         $this->file->storeAs(self::STORE_FOLDER, $name);
         session()->flash('message', 'URL :.'.self::URL_TARGET.$name);
 
-        $rows = \Maatwebsite\Excel\Facades\Excel::toArray(new ImportOutlet(),self::URL_TARGET.$name);
+        $rows = \Maatwebsite\Excel\Facades\Excel::toArray(new \App\Imports\ImportOutlet(),self::URL_TARGET.$name);
         $newOutlets = [];
+
         foreach ($rows[0] as $row) {
             $row['dealer_id'] =$this->dealer_id;
             $row['cluster_id'] = $this->cluster_id;
             $row['msisdn'] = $row['dompul_msisdn'];
             $row['name'] = $row['outlet_name'];
-            $row['xl_outlet_id'] = $row['outlet_id'];
             $row['type'] = $row['outlet_type'];
             unset($row['outlet_id'], $row['outlet_name'], $row['dompul_msisdn'], $row['outlet_type'], $row['sales_cluster']);
             array_push($newOutlets, $row);

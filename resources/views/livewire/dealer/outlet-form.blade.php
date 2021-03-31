@@ -20,13 +20,13 @@
 
 
         <div class="form-group mb-4">
-            <label for="province">Outlet Type</label>
+            <label>Outlet Type</label>
             <select class="custom-select @error('type') is-invalid @endif" id="role" wire:model="type">
                 <option value="0">Choose..</option>
                 @forelse($types as $opt_type)
                     <option value="{{ $opt_type->name }}">{{ $opt_type->name }}</option>
                 @empty
-                    <option value="0" disabled>Select Province first!</option>
+                    <option value="0" disabled>No Outlet Type!</option>
                 @endforelse
             </select>
             @error('type') <span class="form-text text-muted text-danger">{{ $message }}</span> @enderror
@@ -109,7 +109,6 @@
                     <option value="0" disabled>Choose Province first!</option>
                 @endforelse
             </select>
-            {{ $cluster_id }}
             @error('cluster_id') <span class="form-text text-muted text-danger">{{ $message }}</span> @enderror
         </div>
 

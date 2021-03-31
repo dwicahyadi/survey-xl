@@ -33,7 +33,7 @@ class DoSurvey extends Component
     public function mount()
     {
         $this->sections = Section::with(['questions.answers'])->whereHas('questions',function ($q){
-            $q->where('is_active',1);
+            $q->where('is_active',true);
         })->get();
 
 
