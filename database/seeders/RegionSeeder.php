@@ -15,6 +15,6 @@ class RegionSeeder extends Seeder
     public function run()
     {
         Eloquent::unguard();
-        \DB::unprepared(file_get_contents(storage_path('app/sql/region.sql')));
+        \DB::unprepared(file_get_contents(storage_path('sql/region.sql')));
     }
 }
