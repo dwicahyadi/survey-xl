@@ -12,3 +12,6 @@
 * Jalankan migrasi <code>php artisan migrate --force</code>
 * Jalankan <code>php artisan db:seed</code>
 * Jalankan <code>php artisan storage:link</code>
+
+##User Super Admin
+super@avacentral.com : password
