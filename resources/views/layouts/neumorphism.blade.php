@@ -124,7 +124,7 @@
         </section>
     @endif
 
-    @if(!Auth::user()->province && !Auth::user()->city && Auth::user()->hasRole('surveyor'))
+    @if(!Auth::user()->province && !Auth::user()->city && !Auth::user()->hasRole(['super admin','admin dealer']))
         <div class="container mt-8 p-4 bg-warning rounded ">
             <span><i class="fas fa-key mx-4"></i>Please update your region in Profile </span>
         </div>

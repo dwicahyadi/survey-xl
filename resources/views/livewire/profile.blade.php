@@ -20,7 +20,7 @@
                 </div>
                 <div class="form-group mb-2">
                     <label>email</label>
-                    <input type="text" wire:model="email" class="form-control" readonly>
+                    <input type="text" wire:model="email" class="form-control" @if(!Auth::user()->hasRole('super admin')) readonly @endif>
                 </div>
 
                 <div class="form-group mb-2 text-right">
