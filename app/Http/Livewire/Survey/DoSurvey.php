@@ -73,9 +73,12 @@ class DoSurvey extends Component
 
         foreach ($this->responses as $question_id => $response)
         {
+            $firstTime = false;
             $text = 'no response';
             $index = 0;
             $prevIndex = $this->prevResponses[$question_id]['index'] ?? 0;
+            if(!$this->prevResponses)
+                $firstTime = true;
 
             if (isset($response['radio']))
             {
@@ -128,7 +131,7 @@ class DoSurvey extends Component
                 'question_id'=>$question_id,
                 'response'=>$text,
                 'index'=>$index,
-                'status'=>$status,
+                'status'=> $firstTime ? 'first time' : $status,
                 'created_at'=>now()
             ]);
         }

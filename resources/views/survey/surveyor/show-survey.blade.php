@@ -80,11 +80,15 @@
                                             </span>
                                             @elseif($response->status == 'worse')
                                                 <span class="text-danger p-2">
-                                                <i class="fas fa-chevron-circle-down"></i> worst
+                                                <i class="fas fa-chevron-circle-down"></i> worse
                                             </span>
-                                            @else
+                                            @elseif($response->status == 'state')
                                                 <span class="text-info p-2">
                                                 <i class="fas fa-chevron-circle-right"></i> state
+                                            </span>
+                                            @elseif($response->status == 'first time')
+                                                <span class="text-info p-2">
+                                                <i class="fas fa-asterisk"></i> first time
                                             </span>
                                             @endif
 
