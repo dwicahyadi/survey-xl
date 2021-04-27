@@ -8,6 +8,7 @@ class UserCard extends Component
 {
     public $user;
     public $editing = 0;
+    public $isReset = false;
 
     protected $listeners = ['saved'=>'$refresh', 'closeEdit'];
 
@@ -18,8 +19,9 @@ class UserCard extends Component
 
     public function resetPassword()
     {
-        $this->user->password = bcrypt('passwprd');
-        $this->user->update();
+        $this->user->password = bcrypt('password');
+        $this->user->save();
+        $this->isReset = true;
 
         $this->emit('saved');
     }

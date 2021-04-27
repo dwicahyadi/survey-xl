@@ -1,4 +1,17 @@
 <div>
+    <div wire:loading>
+        <div class="bg-info p-4 rounded border-light" style="
+    position: fixed;
+    left: 10%;
+    top: 35%;
+    width: 80vw;
+    z-index: 1000;">
+            <span class="text-white"><i class="fa fa-spin fa-spinner"></i> loading...</span>
+    </div>
+
+</div>
+<form wire:submit.prevent="save">
+    @csrf
     <h3>General</h3>
     <div class="card card-body shadow-soft my-2">
         <div class="d-flex p-2 border-light border-bottom mb-2">
@@ -19,12 +32,12 @@
 
         <div class="form-group">
             <label>PIC Name</label>
-            <input type="text" class="form-control @error('pic_name') is-invalid @enderror" wire:model="pic_name">
+            <input type="text" class="form-control @error('pic_name') is-invalid @enderror" wire:model.lazy="pic_name">
             @error('pic_name') <span class="form-text text-muted text-danger">{{ $message }}</span> @enderror
         </div>
         <div class="form-group">
             <label>PIC Contact</label>
-            <input type="text" class="form-control @error('pic_contact') is-invalid @enderror" wire:model="pic_contact">
+            <input type="text" class="form-control @error('pic_contact') is-invalid @enderror" wire:model.lazy="pic_contact">
             @error('pic_contact') <span class="form-text text-muted text-danger">{{ $message }}</span> @enderror
         </div>
 
@@ -32,7 +45,7 @@
 
         <div class="form-group">
             <label>Note (optional)</label>
-            <textarea class="form-control" wire:model="note"></textarea>
+            <textarea class="form-control" wire:model.lazy="note"></textarea>
         </div>
     </div>
 
@@ -53,7 +66,7 @@
 
                             <div class="list-group">
                                 @forelse($question->answers as $answer)
-                                    <input type="radio"
+                                    <input required type="radio"
                                            value="{{ json_encode($answer) }}"
                                            id="{{ 'answer-question-'.$question->id.'-'.$answer->id }}"
                                            wire:model="responses.{{$question->id}}.radio"
@@ -68,7 +81,7 @@
                         @if($question->type == 'input_number')
 
                             <div class="p-2">
-                                <input type="number"
+                                <input required type="number"
                                        class="form-control"
                                        id="{{ 'answer-question-'.$question->id.'-'.$answer->id }}"
                                        placeholder="type a number..."
@@ -91,7 +104,7 @@
                         @if($question->type == 'file')
 
                             <div class="p-2">
-                                <input type="file"
+                                <input required type="file"
                                        class="my-4"
                                        id="{{ 'answer-question-'.$question->id.'-'.$answer->id }}"
                                        placeholder="type response..."
@@ -111,11 +124,13 @@
 
     <hr>
 
-    <button class="btn btn-primary btn-block" wire:click="save" wire:loading.attr="disabled"><i class="fas fa-check-circle"></i> Save Survey</button>
+    <button class="btn btn-primary btn-block" type="submit" wire:loading.attr="disabled"><i class="fas fa-check-circle"></i> Save Survey</button>
     <hr>
 
 
     @if($errors->any())
         {!! implode('', $errors->all('<p class="text-danger"><i class="fas fa-times mr-2"></i>:message</p>')) !!}
     @endif
-</p>
+</form>
+
+</div>
