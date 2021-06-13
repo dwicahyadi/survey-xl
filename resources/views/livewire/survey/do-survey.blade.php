@@ -109,6 +109,7 @@
                                        id="{{ 'answer-question-'.$question->id.'-'.$answer->id }}"
                                        placeholder="type response..."
                                        wire:model="responses.{{$question->id}}.file" />
+                                <small>Max upload filesize : {{ $max_size }}</small>
                             </div>
                         @endif
                     </div>

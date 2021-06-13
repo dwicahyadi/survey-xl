@@ -89,4 +89,12 @@ class SettingController extends Controller
 
         return redirect()->back();
     }
+
+    public function deleteQuestion(int $id)
+    {
+        DB::table('answer_question_survey')
+            ->where('question_id',$id)->delete();
+        Question::where('id', $id)->delete();
+        return redirect()->back();
+    }
 }

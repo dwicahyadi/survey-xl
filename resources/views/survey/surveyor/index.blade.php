@@ -2,6 +2,9 @@
 
 @section('content')
     <section class="section section bg-primary pb-5 overflow-hidden z-2">
+        <div class="container">
+            @livewire('clock')
+        </div>
         <div class="container z-2">
             <div class="row justify-content-center text-center pt-6">
                 <div class="col-lg-6 col-xl-6">

@@ -23,15 +23,17 @@ class DoSurvey extends Component
     public $pic_name, $pic_contact, $note;
     public $sections;
     public $responses = [];
+    public $max_size;
 
     protected $rules = [
         'pic_name' => 'required',
         'pic_contact' => 'required',
-        'responses.*.file' => 'image|max:1024',
+        'responses.*.file' => 'image|max:10240',
     ];
 
     public function mount()
     {
+        $this->max_size = ini_get('upload_max_filesize');
         $this->sections = Section::with(['questions.answers'])->whereHas('questions',function ($q){
             $q->where('is_active',true);
         })->get();

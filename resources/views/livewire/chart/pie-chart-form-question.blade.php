@@ -4,6 +4,8 @@
         // based on prepared DOM, initialize echarts instance
         var {{ $elementId }} = echarts.init(document.getElementById('{{ $elementId }}'));
 
+        var colorPalette = ['#FF0D0D', '#FF8E15', '#FAB733','#ACB334','#69B34C'];
+
         // specify chart configuration item and data
         var option{{ $elementId }} = {
             /*title: {
@@ -12,7 +14,8 @@
                 left: 'center'
             },*/
             tooltip: {
-                trigger: 'item'
+                trigger: 'item',
+                formatter: "{a} <br/>{b} : {c} ({d}%)"
             },
            /* legend: {
                 orient: 'vertical',
@@ -24,6 +27,7 @@
                     type: 'pie',
                     radius: '50%',
                     data: {!! $data !!},
+                    // color: colorPalette,
                     emphasis: {
                         itemStyle: {
                             shadowBlur: 10,

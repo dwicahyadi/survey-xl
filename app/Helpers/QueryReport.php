@@ -12,9 +12,10 @@ class QueryReport
     {
         $query =  DB::table('answer_question_survey')
             ->join('surveys','answer_question_survey.survey_id','=','surveys.id')
-            ->select(DB::raw('response as name, count(answer_question_survey.id) as value'))
+            ->select(DB::raw('response as name, count(answer_question_survey.id) as value, answer_question_survey.index'))
             ->where('question_id',$question_id)
-            ->groupBy('name');
+            ->orderBy('answer_question_survey.index')
+            ->groupBy('name','answer_question_survey.index');
 
         if ($dealer_id)
             $query->where('dealer_id', $dealer_id);

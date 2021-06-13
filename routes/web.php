@@ -64,6 +64,7 @@ Route::prefix('setting')->name('setting.')->group(function (){
     Route::delete('/delete_all_survey',[\App\Http\Controllers\SettingController::class,'deleteAllSurvey'])->name('delete.all-surveys');
     Route::delete('/delete_all_questions',[\App\Http\Controllers\SettingController::class, 'deleteAllQuestions'])->name('delete.all-questions');
     Route::delete('/delete_all_dealers',[\App\Http\Controllers\SettingController::class,'deleteAllDealers'])->name('delete.all-dealers');
+    Route::delete('/delete_question/{id}',[\App\Http\Controllers\SettingController::class,'deleteQuestion'])->name('delete.question');
 });
 
 
