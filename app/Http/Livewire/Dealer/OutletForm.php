@@ -21,7 +21,7 @@ class OutletForm extends Component
 
     protected $rules = [
         'name' => 'required|min:6',
-        'msisdn'=> 'required|min:10|max:13|unique:outlets',
+        'msisdn'=> 'required|min:10|max:15|unique:outlets',
         'type'=>'required',
         'address'=>'required',
         'province'=>'required',

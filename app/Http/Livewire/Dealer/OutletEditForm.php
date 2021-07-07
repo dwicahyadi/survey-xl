@@ -15,7 +15,7 @@ class OutletEditForm extends Component
 
     protected $rules = [
         'name' => 'required|min:6',
-        'msisdn'=> 'required|digits_between:10,13|numeric',
+        'msisdn'=> 'required|digits_between:10,15|numeric',
 //        'xl_outlet_id'=>'required',
         'type'=>'required',
         'address'=>'required',
